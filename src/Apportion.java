@@ -54,5 +54,12 @@ public class Apportion extends javax.swing.JFrame {
                 new Apportion();
             }
         });
+
+        // try {
+        //     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        // } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+        //         | UnsupportedLookAndFeelException e) {
+        //     e.printStackTrace();
+        // }
     }
 }
