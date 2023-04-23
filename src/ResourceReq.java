@@ -2,7 +2,7 @@ public class ResourceReq extends javax.swing.JPanel {
     public ResourceReq() {
         initComponents();
     }
-
+                   
     private void initComponents() {
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
@@ -405,7 +405,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_rr_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_rr_resource3.setForeground(new java.awt.Color(153, 153, 153));
         input_rr_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_rr_resource3.setToolTipText("");
+        input_rr_resource3.setToolTipText(null);
         input_rr_resource3.setBorder(null);
         input_rr_resource3.setOpaque(false);
         input_rrInput.add(input_rr_resource3);
@@ -414,7 +414,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_rr_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_rr_resource2.setForeground(new java.awt.Color(153, 153, 153));
         input_rr_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_rr_resource2.setToolTipText("");
+        input_rr_resource2.setToolTipText(null);
         input_rr_resource2.setBorder(null);
         input_rr_resource2.setOpaque(false);
         input_rrInput.add(input_rr_resource2);
@@ -423,7 +423,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_rr_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_rr_resource1.setForeground(new java.awt.Color(153, 153, 153));
         input_rr_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_rr_resource1.setToolTipText("");
+        input_rr_resource1.setToolTipText(null);
         input_rr_resource1.setBorder(null);
         input_rr_resource1.setOpaque(false);
         input_rrInput.add(input_rr_resource1);
@@ -432,7 +432,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_rr_process.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_rr_process.setForeground(new java.awt.Color(153, 153, 153));
         input_rr_process.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_rr_process.setToolTipText("");
+        input_rr_process.setToolTipText(null);
         input_rr_process.setBorder(null);
         input_rr_process.setOpaque(false);
         input_rrInput.add(input_rr_process);
@@ -514,7 +514,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_a2_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a2_resource3.setForeground(new java.awt.Color(153, 153, 153));
         input_a2_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource3.setToolTipText("");
+        input_a2_resource3.setToolTipText(null);
         input_a2_resource3.setBorder(null);
         input_a2_resource3.setOpaque(false);
         input_safetyInputPanel.add(input_a2_resource3);
@@ -523,7 +523,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_a2_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a2_resource2.setForeground(new java.awt.Color(153, 153, 153));
         input_a2_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource2.setToolTipText("");
+        input_a2_resource2.setToolTipText(null);
         input_a2_resource2.setBorder(null);
         input_a2_resource2.setOpaque(false);
         input_safetyInputPanel.add(input_a2_resource2);
@@ -532,7 +532,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_a2_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a2_resource1.setForeground(new java.awt.Color(153, 153, 153));
         input_a2_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource1.setToolTipText("");
+        input_a2_resource1.setToolTipText(null);
         input_a2_resource1.setBorder(null);
         input_a2_resource1.setOpaque(false);
         input_safetyInputPanel.add(input_a2_resource1);
@@ -541,7 +541,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_m1_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_m1_resource3.setForeground(new java.awt.Color(153, 153, 153));
         input_m1_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource3.setToolTipText("");
+        input_m1_resource3.setToolTipText(null);
         input_m1_resource3.setBorder(null);
         input_m1_resource3.setOpaque(false);
         input_safetyInputPanel.add(input_m1_resource3);
@@ -550,7 +550,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_m1_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_m1_resource2.setForeground(new java.awt.Color(153, 153, 153));
         input_m1_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource2.setToolTipText("");
+        input_m1_resource2.setToolTipText(null);
         input_m1_resource2.setBorder(null);
         input_m1_resource2.setOpaque(false);
         input_safetyInputPanel.add(input_m1_resource2);
@@ -559,7 +559,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_m1_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_m1_resource1.setForeground(new java.awt.Color(153, 153, 153));
         input_m1_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource1.setToolTipText("");
+        input_m1_resource1.setToolTipText(null);
         input_m1_resource1.setBorder(null);
         input_m1_resource1.setOpaque(false);
         input_safetyInputPanel.add(input_m1_resource1);
@@ -568,7 +568,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_a1_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a1_resource3.setForeground(new java.awt.Color(153, 153, 153));
         input_a1_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource3.setToolTipText("");
+        input_a1_resource3.setToolTipText(null);
         input_a1_resource3.setBorder(null);
         input_a1_resource3.setOpaque(false);
         input_safetyInputPanel.add(input_a1_resource3);
@@ -577,7 +577,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_a1_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a1_resource2.setForeground(new java.awt.Color(153, 153, 153));
         input_a1_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource2.setToolTipText("");
+        input_a1_resource2.setToolTipText(null);
         input_a1_resource2.setBorder(null);
         input_a1_resource2.setOpaque(false);
         input_safetyInputPanel.add(input_a1_resource2);
@@ -586,7 +586,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_a1_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a1_resource1.setForeground(new java.awt.Color(153, 153, 153));
         input_a1_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource1.setToolTipText("");
+        input_a1_resource1.setToolTipText(null);
         input_a1_resource1.setBorder(null);
         input_a1_resource1.setOpaque(false);
         input_safetyInputPanel.add(input_a1_resource1);
@@ -595,7 +595,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_a1_process.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a1_process.setForeground(new java.awt.Color(153, 153, 153));
         input_a1_process.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_process.setToolTipText("");
+        input_a1_process.setToolTipText(null);
         input_a1_process.setBorder(null);
         input_a1_process.setOpaque(false);
         input_safetyInputPanel.add(input_a1_process);
@@ -619,114 +619,114 @@ public class ResourceReq extends javax.swing.JPanel {
         input_bg.setBounds(0, 0, 1080, 720);
     }
 
-    private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {
+    private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {                                      
         minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_after.png")));
-    }
+    }                                     
 
-    private void minimizeMouseExited(java.awt.event.MouseEvent evt) {
+    private void minimizeMouseExited(java.awt.event.MouseEvent evt) {                                     
         minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_before.png")));
-    }
+    }                                    
 
-    private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+    private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {                                         
         Apportion.mainFrame.setState(java.awt.Frame.ICONIFIED);
-    }
+    }                                        
 
-    private void exitMouseEntered(java.awt.event.MouseEvent evt) {
+    private void exitMouseEntered(java.awt.event.MouseEvent evt) {                                  
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_after.png")));
-    }
+    }                                 
 
-    private void exitMouseExited(java.awt.event.MouseEvent evt) {
+    private void exitMouseExited(java.awt.event.MouseEvent evt) {                                 
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_before.png")));
-    }
+    }                                
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {                                     
         System.exit(0);
-    }
+    }                                    
 
-    private void input_returnMouseEntered(java.awt.event.MouseEvent evt) {
+    private void input_returnMouseEntered(java.awt.event.MouseEvent evt) {                                          
         input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_after.png")));
-    }
+    }                                         
 
-    private void input_returnMouseExited(java.awt.event.MouseEvent evt) {
+    private void input_returnMouseExited(java.awt.event.MouseEvent evt) {                                         
         input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_before.png")));
-    }
+    }                                        
 
-    private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {                                             
         Apportion.card.show(Apportion.mainPanel, "2");
-    }
+    }                                            
 
-    private void input_importMouseEntered(java.awt.event.MouseEvent evt) {
+    private void input_importMouseEntered(java.awt.event.MouseEvent evt) {                                          
         input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_after.png")));
-    }
+    }                                         
 
-    private void input_importMouseExited(java.awt.event.MouseEvent evt) {
+    private void input_importMouseExited(java.awt.event.MouseEvent evt) {                                         
         input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png")));
-    }
+    }                                        
 
-    private void input_importActionPerformed(java.awt.event.ActionEvent evt) {
+    private void input_importActionPerformed(java.awt.event.ActionEvent evt) {                                             
         
-    }
+    }                                            
 
-    private void input_randomMouseEntered(java.awt.event.MouseEvent evt) {
+    private void input_randomMouseEntered(java.awt.event.MouseEvent evt) {                                          
         input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_after.png")));
-    }
+    }                                         
 
-    private void input_randomMouseExited(java.awt.event.MouseEvent evt) {
+    private void input_randomMouseExited(java.awt.event.MouseEvent evt) {                                         
         input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_before.png")));
-    }
+    }                                        
 
-    private void input_randomActionPerformed(java.awt.event.ActionEvent evt) {
+    private void input_randomActionPerformed(java.awt.event.ActionEvent evt) {                                             
         
-    }
+    }                                            
 
-    private void input_safetyActionPerformed(java.awt.event.ActionEvent evt) {
+    private void input_safetyActionPerformed(java.awt.event.ActionEvent evt) {                                             
         
-    }
+    }                                            
 
-    private void input_safetyMouseExited(java.awt.event.MouseEvent evt) {
+    private void input_safetyMouseExited(java.awt.event.MouseEvent evt) {                                         
         input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/request_before.png")));
-    }
+    }                                        
 
-    private void input_safetyMouseEntered(java.awt.event.MouseEvent evt) {
+    private void input_safetyMouseEntered(java.awt.event.MouseEvent evt) {                                          
         input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/request_after.png")));
-    }
+    }                                         
 
-    private void input_inAllocMaxMouseEntered(java.awt.event.MouseEvent evt) {
+    private void input_inAllocMaxMouseEntered(java.awt.event.MouseEvent evt) {                                              
         input_inAllocMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/add_after.png")));
-    }
+    }                                             
 
-    private void input_inAllocMaxMouseExited(java.awt.event.MouseEvent evt) {
+    private void input_inAllocMaxMouseExited(java.awt.event.MouseEvent evt) {                                             
         input_inAllocMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/add_before.png")));
-    }
+    }                                            
 
-    private void input_inAllocMaxActionPerformed(java.awt.event.ActionEvent evt) {
+    private void input_inAllocMaxActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         
-    }
+    }                                                
 
-    private void input_inAvailMouseEntered(java.awt.event.MouseEvent evt) {
+    private void input_inAvailMouseEntered(java.awt.event.MouseEvent evt) {                                           
         input_inAvail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_after.png")));
-    }
+    }                                          
 
-    private void input_inAvailMouseExited(java.awt.event.MouseEvent evt) {
+    private void input_inAvailMouseExited(java.awt.event.MouseEvent evt) {                                          
         input_inAvail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_before.png")));
-    }
+    }                                         
 
-    private void input_inAvailActionPerformed(java.awt.event.ActionEvent evt) {
+    private void input_inAvailActionPerformed(java.awt.event.ActionEvent evt) {                                              
         
-    }
+    }                                             
 
-    private void input_inReqMouseEntered(java.awt.event.MouseEvent evt) {
+    private void input_inReqMouseEntered(java.awt.event.MouseEvent evt) {                                         
         input_inReq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_after.png")));
-    }
+    }                                        
 
-    private void input_inReqMouseExited(java.awt.event.MouseEvent evt) {
+    private void input_inReqMouseExited(java.awt.event.MouseEvent evt) {                                        
         input_inReq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_before.png")));
-    }
+    }                                       
 
-    private void input_inReqActionPerformed(java.awt.event.ActionEvent evt) {
+    private void input_inReqActionPerformed(java.awt.event.ActionEvent evt) {                                            
         
-    }
-
+    }                                           
+             
     private javax.swing.JButton exit;
     private javax.swing.JTextField input_a1_process;
     private javax.swing.JTextField input_a1_resource1;
@@ -770,5 +770,5 @@ public class ResourceReq extends javax.swing.JPanel {
     private javax.swing.JTextField input_rr_resource3;
     private javax.swing.JButton input_safety;
     private javax.swing.JPanel input_safetyInputPanel;
-    private javax.swing.JButton minimize;
+    private javax.swing.JButton minimize;             
 }

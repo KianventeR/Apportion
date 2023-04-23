@@ -324,7 +324,7 @@ public class Safety extends javax.swing.JPanel {
         input_a2_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a2_resource3.setForeground(new java.awt.Color(153, 153, 153));
         input_a2_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource3.setToolTipText("");
+        input_a2_resource3.setToolTipText(null);
         input_a2_resource3.setBorder(null);
         input_a2_resource3.setOpaque(false);
         add(input_a2_resource3);
@@ -333,7 +333,7 @@ public class Safety extends javax.swing.JPanel {
         input_a2_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a2_resource2.setForeground(new java.awt.Color(153, 153, 153));
         input_a2_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource2.setToolTipText("");
+        input_a2_resource2.setToolTipText(null);
         input_a2_resource2.setBorder(null);
         input_a2_resource2.setOpaque(false);
         add(input_a2_resource2);
@@ -342,7 +342,7 @@ public class Safety extends javax.swing.JPanel {
         input_a2_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a2_resource1.setForeground(new java.awt.Color(153, 153, 153));
         input_a2_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource1.setToolTipText("");
+        input_a2_resource1.setToolTipText(null);
         input_a2_resource1.setBorder(null);
         input_a2_resource1.setOpaque(false);
         add(input_a2_resource1);
@@ -351,7 +351,7 @@ public class Safety extends javax.swing.JPanel {
         input_m1_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_m1_resource3.setForeground(new java.awt.Color(153, 153, 153));
         input_m1_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource3.setToolTipText("");
+        input_m1_resource3.setToolTipText(null);
         input_m1_resource3.setBorder(null);
         input_m1_resource3.setOpaque(false);
         add(input_m1_resource3);
@@ -360,7 +360,7 @@ public class Safety extends javax.swing.JPanel {
         input_m1_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_m1_resource2.setForeground(new java.awt.Color(153, 153, 153));
         input_m1_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource2.setToolTipText("");
+        input_m1_resource2.setToolTipText(null);
         input_m1_resource2.setBorder(null);
         input_m1_resource2.setOpaque(false);
         add(input_m1_resource2);
@@ -369,7 +369,7 @@ public class Safety extends javax.swing.JPanel {
         input_m1_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_m1_resource1.setForeground(new java.awt.Color(153, 153, 153));
         input_m1_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource1.setToolTipText("");
+        input_m1_resource1.setToolTipText(null);
         input_m1_resource1.setBorder(null);
         input_m1_resource1.setOpaque(false);
         add(input_m1_resource1);
@@ -378,7 +378,7 @@ public class Safety extends javax.swing.JPanel {
         input_a1_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a1_resource3.setForeground(new java.awt.Color(153, 153, 153));
         input_a1_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource3.setToolTipText("");
+        input_a1_resource3.setToolTipText(null);
         input_a1_resource3.setBorder(null);
         input_a1_resource3.setOpaque(false);
         add(input_a1_resource3);
@@ -387,7 +387,7 @@ public class Safety extends javax.swing.JPanel {
         input_a1_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a1_resource2.setForeground(new java.awt.Color(153, 153, 153));
         input_a1_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource2.setToolTipText("");
+        input_a1_resource2.setToolTipText(null);
         input_a1_resource2.setBorder(null);
         input_a1_resource2.setOpaque(false);
         add(input_a1_resource2);
@@ -396,7 +396,7 @@ public class Safety extends javax.swing.JPanel {
         input_a1_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a1_resource1.setForeground(new java.awt.Color(153, 153, 153));
         input_a1_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource1.setToolTipText("");
+        input_a1_resource1.setToolTipText(null);
         input_a1_resource1.setBorder(null);
         input_a1_resource1.setOpaque(false);
         add(input_a1_resource1);
@@ -405,7 +405,7 @@ public class Safety extends javax.swing.JPanel {
         input_a1_process.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_a1_process.setForeground(new java.awt.Color(153, 153, 153));
         input_a1_process.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_process.setToolTipText("");
+        input_a1_process.setToolTipText(null);
         input_a1_process.setBorder(null);
         input_a1_process.setOpaque(false);
         add(input_a1_process);
