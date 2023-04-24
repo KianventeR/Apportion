@@ -18,6 +18,7 @@ public class Apportion extends javax.swing.JFrame {
     public static boolean sound = true;
     
     public Apportion() {
+        
         mainFrame.setSize(1080, 720);
         mainFrame.setTitle("Apportion");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +42,7 @@ public class Apportion extends javax.swing.JFrame {
         
         card.show(mainPanel, "1");
 //        Music.bgMusic();
-        
+            
         new java.util.Timer().schedule(new java.util.TimerTask() {
             @Override
             public void run() {
@@ -51,17 +52,13 @@ public class Apportion extends javax.swing.JFrame {
     }
 
     public static void main(String[] args) {
+    
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Apportion();
             }
         });
 
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+       
     }
 }

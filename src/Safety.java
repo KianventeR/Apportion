@@ -4,11 +4,18 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Safety extends javax.swing.JPanel {
    
     public Safety() {
-        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
 
@@ -42,7 +49,7 @@ public class Safety extends javax.swing.JPanel {
 
     private void initComponents() {
         
-     
+       
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         input_availtable_scroll = new javax.swing.JScrollPane();
@@ -236,7 +243,7 @@ public class Safety extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        input_alloctable.setColumnSelectionAllowed(true);
+        input_alloctable.setColumnSelectionAllowed(false);
         input_alloctable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_alloctable.setFillsViewportHeight(true);
         input_alloctable.setGridColor(new java.awt.Color(0, 0, 0));
@@ -583,7 +590,7 @@ public class Safety extends javax.swing.JPanel {
               avail_model.removeRow(0);
             }
             read.useDelimiter(" ");
-            disable_input();
+            
         String process, allocA, allocB, allocC, maxA, maxB, maxC, availA, availB, availC, processReq, reqA, reqB, reqC;
 
         while(read.hasNext()){
@@ -618,6 +625,7 @@ public class Safety extends javax.swing.JPanel {
             
             alloc_model.addRow(alloc_row);
             max_model.addRow(max_row);
+            disable_input();
            
             
         }
@@ -630,6 +638,7 @@ public class Safety extends javax.swing.JPanel {
     }   
 
     private void disable_input() {
+        input_alloc_pid.setText(String.valueOf(input_alloctable.getRowCount()));
         input_alloc.setEnabled(false);
         input_avail.setEnabled(false);
         input_avaialable.setEnabled(false);
