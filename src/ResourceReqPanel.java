@@ -1,9 +1,19 @@
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class ResourceReqPanel extends javax.swing.JPanel {
     public ResourceReqPanel() {
         initComponents();
     }
                    
     private void initComponents() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         input_requesttable_scroll = new javax.swing.JScrollPane();
