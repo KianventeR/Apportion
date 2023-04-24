@@ -3,6 +3,11 @@ public class Select extends javax.swing.JPanel {
         initComponents();
     }
 
+    public boolean safety_selected(){
+        return true;
+        
+    }
+
     private void initComponents() {
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
@@ -173,6 +178,7 @@ public class Select extends javax.swing.JPanel {
     }
 
     private void select_safetyActionPerformed(java.awt.event.ActionEvent evt) {
+
         Apportion.card.show(Apportion.mainPanel, "7");
     }
 

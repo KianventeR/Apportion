@@ -11,7 +11,7 @@ public class Apportion extends javax.swing.JFrame {
     public static Help help = new Help();
     public static About about = new About();
     public static Select select = new Select();
-    public static ResourceReq rreq = new ResourceReq();
+    public static ResourceReqPanel rreq = new ResourceReqPanel();
     public static Safety safe = new Safety();
     
     public static boolean sound = true;

@@ -6,6 +6,18 @@ public class Safety extends javax.swing.JPanel {
     public Safety() {
         initComponents();
     }
+    
+    public int pid = 1;
+    public int alloc_a;
+    public int alloc_b;
+    public int alloc_c;
+    public int max_a;
+    public int max_b;
+    public int max_c;
+    public int avail_a;
+    public int avail_b;
+    public int avail_c;
+
 
     public void header_design(JTable table){
         table.getTableHeader().setFont(new java.awt.Font("Poppins", 1, 12));
@@ -445,6 +457,7 @@ public class Safety extends javax.swing.JPanel {
         input_alloc_pid.setToolTipText(null);
         input_alloc_pid.setBorder(null);
         input_alloc_pid.setOpaque(false);
+        input_alloc_pid.setEditable(false);
         add(input_alloc_pid);
         input_alloc_pid.setBounds(150, 460, 50, 20);
 
@@ -485,6 +498,8 @@ public class Safety extends javax.swing.JPanel {
 
         table_design(input_alloctable);
         table_design(input_maxtable);
+
+        input_alloc_pid.setText(String.valueOf(pid));
 
     }
 
@@ -568,22 +583,14 @@ public class Safety extends javax.swing.JPanel {
         add_process.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/add_before.png")));
     }
     
-    public String pid;
-    public int alloc_a;
-    public int alloc_b;
-    public int alloc_c;
-    public int max_a;
-    public int max_b;
-    public int max_c;
-    public int avail_a;
-    public int avail_b;
-    public int avail_c;
+  
+   
 
     private void add_processActionPerformed(java.awt.event.ActionEvent evt) {
         javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
         javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
         try {
-            pid = input_alloc_pid.getText();
+            pid = Integer.parseInt(input_alloc_pid.getText());
             alloc_a = Integer.parseInt(input_alloc_1.getText());
             alloc_b = Integer.parseInt(input_alloc_2.getText());
             alloc_c = Integer.parseInt(input_alloc_3.getText());
@@ -591,28 +598,43 @@ public class Safety extends javax.swing.JPanel {
             max_b = Integer.parseInt(input_max_2.getText());
             max_c = Integer.parseInt(input_max_3.getText());
             
-            Object[] alloc_row = {pid, alloc_a, alloc_b, alloc_c};
+            Object[] alloc_row = {"P"+pid, alloc_a, alloc_b, alloc_c};
             Object[] max_row = {max_a, max_b, max_c};
 
             alloc_model.addRow(alloc_row);
             max_model.addRow(max_row);
+            
+            pid++;
 
             clear_in();
         } catch (Exception e) {
             System.out.println("Fix this bug!");
             // TODO: handle exception
         }
+
+    
         
     }
 
     private void clear_in() {
-        input_alloc_pid.setText("");
+        input_alloc_pid.setText(String.valueOf(pid));
         input_alloc_1.setText("");
         input_alloc_2.setText("");
         input_alloc_3.setText("");        
         input_max_1.setText("");
         input_max_2.setText("");
         input_max_3.setText("");
+    }
+
+    private void clear_avail() {
+       input_avaialable.setEnabled(false);
+       input_av_resource1.setText("");
+       input_av_resource2.setText("");
+       input_av_resource3.setText("");
+       input_av_resource1.setEnabled(false);
+       input_av_resource2.setEnabled(false);
+       input_av_resource3.setEnabled(false);
+       input_avail.setEnabled(false);
     }
 
     private void input_avaialableMouseEntered(java.awt.event.MouseEvent evt) {
@@ -624,6 +646,22 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void input_avaialableActionPerformed(java.awt.event.ActionEvent evt) {
+
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+        try {
+            avail_a = Integer.parseInt(input_av_resource1.getText());
+            avail_b = Integer.parseInt(input_av_resource2.getText());
+            avail_c = Integer.parseInt(input_av_resource3.getText());
+
+            Object[] avail_row = {avail_a, avail_b, avail_c};
+            avail_model.addRow(avail_row);
+
+            clear_avail();
+           
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         
     }
 

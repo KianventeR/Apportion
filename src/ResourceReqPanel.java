@@ -1,5 +1,5 @@
-public class ResourceReq extends javax.swing.JPanel {
-    public ResourceReq() {
+public class ResourceReqPanel extends javax.swing.JPanel {
+    public ResourceReqPanel() {
         initComponents();
     }
                    
@@ -44,7 +44,7 @@ public class ResourceReq extends javax.swing.JPanel {
         input_a1_resource3 = new javax.swing.JTextField();
         input_a1_resource2 = new javax.swing.JTextField();
         input_a1_resource1 = new javax.swing.JTextField();
-        input_a1_process = new javax.swing.JTextField();
+        input_alloc_pid = new javax.swing.JTextField();
         input_alloc = new javax.swing.JLabel();
         input_avail = new javax.swing.JLabel();
         input_bg = new javax.swing.JLabel();
@@ -592,14 +592,15 @@ public class ResourceReq extends javax.swing.JPanel {
         input_safetyInputPanel.add(input_a1_resource1);
         input_a1_resource1.setBounds(100, 60, 50, 20);
 
-        input_a1_process.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_a1_process.setForeground(new java.awt.Color(153, 153, 153));
-        input_a1_process.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_process.setToolTipText(null);
-        input_a1_process.setBorder(null);
-        input_a1_process.setOpaque(false);
-        input_safetyInputPanel.add(input_a1_process);
-        input_a1_process.setBounds(30, 60, 50, 20);
+        input_alloc_pid.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
+        input_alloc_pid.setForeground(new java.awt.Color(153, 153, 153));
+        input_alloc_pid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        input_alloc_pid.setToolTipText(null);
+        input_alloc_pid.setBorder(null);
+        input_alloc_pid.setEditable(false);
+        input_alloc_pid.setOpaque(false);
+        input_safetyInputPanel.add(input_alloc_pid);
+        input_alloc_pid.setBounds(30, 60, 50, 20);
 
         input_alloc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/alloc_max.png"))); 
         input_safetyInputPanel.add(input_alloc);
@@ -728,7 +729,7 @@ public class ResourceReq extends javax.swing.JPanel {
     }                                           
              
     private javax.swing.JButton exit;
-    private javax.swing.JTextField input_a1_process;
+    private javax.swing.JTextField input_alloc_pid;
     private javax.swing.JTextField input_a1_resource1;
     private javax.swing.JTextField input_a1_resource2;
     private javax.swing.JTextField input_a1_resource3;
