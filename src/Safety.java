@@ -1,9 +1,20 @@
 import java.awt.Color;
+import java.io.File;
+import java.util.Scanner;
 
+import javax.swing.JFileChooser;
 import javax.swing.JTable;
 
 public class Safety extends javax.swing.JPanel {
+   
     public Safety() {
+        
+        initComponents();
+    }
+
+    public void reset(){
+        pid = 1;
+        removeAll();
         initComponents();
     }
     
@@ -537,6 +548,7 @@ public class Safety extends javax.swing.JPanel {
 
     private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {
         Apportion.card.show(Apportion.mainPanel, "2");
+        reset();
     }
 
     private void input_importMouseEntered(java.awt.event.MouseEvent evt) {
@@ -546,9 +558,93 @@ public class Safety extends javax.swing.JPanel {
     private void input_importMouseExited(java.awt.event.MouseEvent evt) {
         input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png")));
     }
-
+   
+   
     private void input_importActionPerformed(java.awt.event.ActionEvent evt) {
+
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+
+        final JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+        boolean availdone = false, request = false;
+        File file = fc.getSelectedFile();
+
         
+        
+      
+        try (Scanner read = new Scanner(file)) {
+            if(alloc_model.getRowCount() > 1){
+              while(alloc_model.getRowCount()!= 0){
+                alloc_model.removeRow(0);
+                max_model.removeRow(0);
+              }
+              avail_model.removeRow(0);
+            }
+            read.useDelimiter(" ");
+            disable_input();
+        String process, allocA, allocB, allocC, maxA, maxB, maxC, availA, availB, availC, processReq, reqA, reqB, reqC;
+
+        while(read.hasNext()){
+            process = read.next();
+            allocA = read.next();
+            allocB = read.next();
+            allocC = read.next();
+            maxA = read.next();
+            maxB = read.next();
+            maxC = read.next();
+            if(!availdone){
+            availA = read.next();
+            availB = read.next();
+            availC = read.next();
+            Object [] avail_row = {availA, availB, availC};
+            avail_model.addRow(avail_row);
+            availdone = true;
+            }
+
+            if(!request){
+                processReq = read.next();
+                reqA = read.next();
+                reqB = read.next();
+                reqC = read.next();
+                // Object [] avail_row = {reqA, reqB, reqC};
+                // avail_model.addRow(avail_row);
+                request = true;
+                }
+
+            Object[] alloc_row = {"P" + process, allocA, allocB, allocC};
+            Object [] max_row = {maxA, maxB, maxC};
+            
+            alloc_model.addRow(alloc_row);
+            max_model.addRow(max_row);
+           
+            
+        }
+
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        
+    }   
+
+    private void disable_input() {
+        input_alloc.setEnabled(false);
+        input_avail.setEnabled(false);
+        input_avaialable.setEnabled(false);
+        input_av_resource1.setEnabled(false);
+        input_av_resource2.setEnabled(false);
+        input_av_resource3.setEnabled(false);
+        input_alloc_1.setEnabled(false);
+        input_alloc_2.setEnabled(false);
+        input_alloc_3.setEnabled(false);
+        input_max_1.setEnabled(false);
+        input_max_2.setEnabled(false);
+        input_max_3.setEnabled(false);
+        add_process.setEnabled(false);
+        input_random.setEnabled(false);
+
     }
 
     private void input_randomMouseEntered(java.awt.event.MouseEvent evt) {

@@ -13,6 +13,7 @@ public class Apportion extends javax.swing.JFrame {
     public static Select select = new Select();
     public static ResourceReqPanel rreq = new ResourceReqPanel();
     public static Safety safe = new Safety();
+    public static Output output = new Output();
     
     public static boolean sound = true;
     
@@ -30,6 +31,7 @@ public class Apportion extends javax.swing.JFrame {
         mainPanel.add(select, "5");
         mainPanel.add(rreq, "6");
         mainPanel.add(safe, "7");
+        mainPanel.add(output, "8");
         
         mainFrame.add(mainPanel);
         mainFrame.pack();
@@ -55,11 +57,11 @@ public class Apportion extends javax.swing.JFrame {
             }
         });
 
-        // try {
-        //     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        // } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-        //         | UnsupportedLookAndFeelException e) {
-        //     e.printStackTrace();
-        // }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }
 }
