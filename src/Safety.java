@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 
 public class Safety extends javax.swing.JPanel {
    
@@ -21,34 +22,26 @@ public class Safety extends javax.swing.JPanel {
     }
 
     public void reset(){
-        pid = 1;
+        defaultprocess = 3;
+        appendprocess = 0;
         removeAll();
         initComponents();
     }
     
-    public int pid = 1;
-    public int alloc_a;
-    public int alloc_b;
-    public int alloc_c;
-    public int max_a;
-    public int max_b;
-    public int max_c;
-    public int avail_a;
-    public int avail_b;
-    public int avail_c;
+    int defaultprocess = 3;
+    int appendprocess = 0;
+    
 
-
-    public void header_design(JTable table){
+   
+    public void table_design(JTable table){
+        table.setFont(new java.awt.Font("Poppins", 0, 12)); 
         table.getTableHeader().setFont(new java.awt.Font("Poppins", 1, 12));
         table.getTableHeader().setOpaque(false);
         table.getTableHeader().setBackground(Color.LIGHT_GRAY);
     }
-    public void table_design(JTable table){
-        table.setFont(new java.awt.Font("Poppins", 0, 12)); 
-        
-    }
 
-    private void initComponents() {
+    public void initComponents() {
+        appendprocess = defaultprocess; 
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         input_availtable_scroll = new javax.swing.JScrollPane();
@@ -75,6 +68,8 @@ public class Safety extends javax.swing.JPanel {
         input_maxtableLabel = new javax.swing.JLabel();
         input_alloctableLabel = new javax.swing.JLabel();
         input_bg = new javax.swing.JLabel();
+
+       
 
         setMaximumSize(new java.awt.Dimension(1080, 720));
         setMinimumSize(new java.awt.Dimension(1080, 720));
@@ -150,6 +145,8 @@ public class Safety extends javax.swing.JPanel {
         input_availtable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_availtable.getTableHeader().setResizingAllowed(false);
         input_availtable.getTableHeader().setReorderingAllowed(false);
+
+
         input_availtable_scroll.setViewportView(input_availtable);
         input_availtable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_availtable.getColumnModel().getColumnCount() > 0) {
@@ -159,7 +156,7 @@ public class Safety extends javax.swing.JPanel {
         }
 
         add(input_availtable_scroll);
-        input_availtable_scroll.setBounds(710, 140, 270, 40);
+        input_availtable_scroll.setBounds(710, 140, 270, 50);
 
         input_maxtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_maxtable.setModel(new javax.swing.table.DefaultTableModel(
@@ -235,6 +232,8 @@ public class Safety extends javax.swing.JPanel {
         add(input_processtable_scroll);
         input_processtable_scroll.setBounds(90, 140, 60, 280);
 
+        
+
         input_alloctable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_alloctable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -255,11 +254,12 @@ public class Safety extends javax.swing.JPanel {
         input_alloctable.setColumnSelectionAllowed(true);
         input_alloctable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_alloctable.setFillsViewportHeight(true);
-        input_alloctable.setGridColor(new java.awt.Color(0, 0, 0));
+        input_alloctable.setGridColor(Color.black);
         input_alloctable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_alloctable.getTableHeader().setResizingAllowed(false);
         input_alloctable.getTableHeader().setReorderingAllowed(false);
         input_alloctable_scroll.setViewportView(input_alloctable);
+        
         input_alloctable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_alloctable.getColumnModel().getColumnCount() > 0) {
             input_alloctable.getColumnModel().getColumn(0).setResizable(false);
@@ -498,7 +498,26 @@ public class Safety extends javax.swing.JPanel {
         input_bg.setBounds(0, 0, 1080, 720);
 
         table_design(input_alloctable);
+        table_design(input_processtable);
         table_design(input_maxtable);
+        table_design(input_availtable);
+
+        process = access_models(input_alloctable, "process");
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+         
+        
+        process.setRowCount(defaultprocess);
+        max.setRowCount(defaultprocess);
+        alloc.setRowCount(defaultprocess);
+
+        for(int i = 1; i <= defaultprocess; i++){
+            process.setValueAt("P"+ i, i-1, 0);
+        }
+
+        
+
+//initcomponents end
     }
 
     private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {
@@ -549,10 +568,8 @@ public class Safety extends javax.swing.JPanel {
    
     private void input_importActionPerformed(java.awt.event.ActionEvent evt) {
 
-        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
-        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
-        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
-        alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
+       
+       
 
         final JFileChooser fc = new JFileChooser();
         fc.showOpenDialog(null);
@@ -563,51 +580,6 @@ public class Safety extends javax.swing.JPanel {
         
       
         try (Scanner read = new Scanner(file)) {
-            if(alloc_model.getRowCount() > 1){
-              while(alloc_model.getRowCount()!= 0){
-                alloc_model.removeRow(0);
-                max_model.removeRow(0);
-              }
-              avail_model.removeRow(0);
-            }
-            read.useDelimiter(" ");
-            
-        String process, allocA, allocB, allocC, maxA, maxB, maxC, availA, availB, availC, processReq, reqA, reqB, reqC;
-
-        while(read.hasNext()){
-            process = read.next();
-            allocA = read.next();
-            allocB = read.next();
-            allocC = read.next();
-            maxA = read.next();
-            maxB = read.next();
-            maxC = read.next();
-            if(!availdone){
-            availA = read.next();
-            availB = read.next();
-            availC = read.next();
-            Object [] avail_row = {availA, availB, availC};
-            avail_model.addRow(avail_row);
-            availdone = true;
-            }
-
-            if(!request){
-                processReq = read.next();
-                reqA = read.next();
-                reqB = read.next();
-                reqC = read.next();
-                
-                
-                request = true;
-                }
-
-            Object[] alloc_row = {"P" + process, allocA, allocB, allocC};
-            Object [] max_row = {maxA, maxB, maxC};
-            
-            alloc_model.addRow(alloc_row);
-            max_model.addRow(max_row);
-        }
-
             
         } catch (Exception e) {
             
@@ -646,10 +618,45 @@ public class Safety extends javax.swing.JPanel {
     private void input_addprocessMouseExited(java.awt.event.MouseEvent evt) {                                             
         input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png")));
     }                                            
+    
+    DefaultTableModel process, max, alloc, available;
 
-    private void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    private void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {    
+        
+        
+
+        process = access_models(input_alloctable, "process");
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+         
+        process.setRowCount(process.getRowCount() + 1);
+        max.setRowCount(max.getRowCount() + 1);
+        alloc.setRowCount(alloc.getRowCount() + 1);
+
+        process.setValueAt("P"+ process.getRowCount(), process.getRowCount()-1, 0);
+        appendprocess++;
+        System.out.println(appendprocess);
+
+      
+      
+        
         // TODO add your handling code here:
     }                                                
+
+    public DefaultTableModel access_models(JTable table, String name) {
+        
+        javax.swing.table.DefaultTableModel process_model = (javax.swing.table.DefaultTableModel)input_processtable.getModel();
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+        
+        if(name == "process"){return process_model;}
+        if(name == "alloc"){return alloc_model;}
+        if(name == "max"){return max_model;}
+        if(name == "avail"){return avail_model;}
+        return null;
+
+    }
 
     private void input_minusprocessMouseEntered(java.awt.event.MouseEvent evt) {                                                
         input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_after.png")));
@@ -659,7 +666,27 @@ public class Safety extends javax.swing.JPanel {
         input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png")));
     }                                              
 
-    private void input_minusprocessActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void input_minusprocessActionPerformed(java.awt.event.ActionEvent evt) {
+        if(process.getRowCount() > 3){
+        
+        process = access_models(input_alloctable, "process");
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+        
+       
+            process.setRowCount(process.getRowCount() - 1);
+            max.setRowCount(max.getRowCount() - 1);
+            alloc.setRowCount(alloc.getRowCount() - 1);
+            appendprocess--;
+
+           
+        }
+        else{
+           System.out.println("Cannot remove less than 3");
+        }
+   
+      
+                                   
         // TODO add your handling code here:
     }                                                  
 
@@ -676,14 +703,23 @@ public class Safety extends javax.swing.JPanel {
     }                                                   
 
     private void input_addresourceMouseEntered(java.awt.event.MouseEvent evt) {                                               
-        input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
+       
+
     }                                              
 
     private void input_addresourceMouseExited(java.awt.event.MouseEvent evt) {                                              
         input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png")));
     }                                             
 
-    private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+    private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {                
+        input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
+        process = access_models(input_alloctable, "process");
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+        available = access_models(input_availtable, "avail");
+
+        // process.setColumnCount(process.getColumnCount()+1);
+        process.setColumnCount(4);                       
         // TODO add your handling code here:
     }     
 
@@ -700,13 +736,13 @@ public class Safety extends javax.swing.JPanel {
     private javax.swing.JScrollPane input_availtable_scroll;
     private javax.swing.JLabel input_bg;
     private javax.swing.JButton input_import;
-    private javax.swing.JTable input_maxtable;
+    public javax.swing.JTable input_maxtable;
     private javax.swing.JLabel input_maxtableLabel;
     private javax.swing.JScrollPane input_maxtable_scroll;
     private javax.swing.JButton input_minusprocess;
     private javax.swing.JButton input_minusresource;
     private javax.swing.JLabel input_processnum;
-    private javax.swing.JTable input_processtable;
+    public javax.swing.JTable input_processtable;
     private javax.swing.JScrollPane input_processtable_scroll;
     private javax.swing.JButton input_random;
     private javax.swing.JLabel input_resourcenum;
