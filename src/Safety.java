@@ -244,11 +244,18 @@ public class Safety extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         input_alloctable.setColumnSelectionAllowed(true);
@@ -718,8 +725,8 @@ public class Safety extends javax.swing.JPanel {
         alloc = access_models(input_alloctable, "alloc");
         available = access_models(input_availtable, "avail");
 
-        // process.setColumnCount(process.getColumnCount()+1);
-        process.setColumnCount(4);                       
+        alloc.setColumnCount(alloc.getColumnCount()+1);
+        // alloc.setColumnCount(4);                       
         // TODO add your handling code here:
     }     
 
