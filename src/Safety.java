@@ -7,7 +7,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.table.DefaultTableModel;
 
 public class Safety extends javax.swing.JPanel {
    
@@ -626,7 +625,7 @@ public class Safety extends javax.swing.JPanel {
         input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png")));
     }                                            
     
-    DefaultTableModel process, max, alloc, available;
+    javax.swing.table.DefaultTableModel process, max, alloc, available;
 
     private void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {    
         
@@ -650,7 +649,7 @@ public class Safety extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                                
 
-    public DefaultTableModel access_models(JTable table, String name) {
+    public javax.swing.table.DefaultTableModel access_models(JTable table, String name) {
         
         javax.swing.table.DefaultTableModel process_model = (javax.swing.table.DefaultTableModel)input_processtable.getModel();
         javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
@@ -724,10 +723,7 @@ public class Safety extends javax.swing.JPanel {
         max = access_models(input_maxtable, "max");
         alloc = access_models(input_alloctable, "alloc");
         available = access_models(input_availtable, "avail");
-
-        available.setColumnCount(available.getColumnCount()+1);
-        // alloc.setColumnCount(4);                       
-        // TODO add your handling code here:
+        
     }     
 
     private javax.swing.JButton exit;
