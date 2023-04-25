@@ -243,7 +243,7 @@ public class Safety extends javax.swing.JPanel {
                 "A", "B", "C"
             }
         ) {
-            Class[] types = new Class [] {
+            Class [] types = new Class [] {
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
             };
             boolean[] canEdit = new boolean [] {
@@ -725,7 +725,7 @@ public class Safety extends javax.swing.JPanel {
         alloc = access_models(input_alloctable, "alloc");
         available = access_models(input_availtable, "avail");
 
-        alloc.setColumnCount(alloc.getColumnCount()+1);
+        available.setColumnCount(available.getColumnCount()+1);
         // alloc.setColumnCount(4);                       
         // TODO add your handling code here:
     }     
