@@ -46,6 +46,7 @@ public class Safety extends javax.swing.JPanel {
     public void initComponents() {
         appendprocess = defaultprocess; 
         current_resource = defaultresource; 
+      
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         input_availtable_scroll = new javax.swing.JScrollPane();
@@ -550,7 +551,8 @@ public class Safety extends javax.swing.JPanel {
         // for(int i = 1; i <= defaultprocess; i++){
         //     process.setValueAt("P"+ i, i-1, 0);
         // }
-
+        input_addP.setText(String.valueOf(appendprocess));
+        input_addR.setText(String.valueOf(current_resource));
         
 
 //initcomponents end
@@ -672,6 +674,7 @@ public class Safety extends javax.swing.JPanel {
 
         process.setValueAt("P"+ process.getRowCount(), process.getRowCount()-1, 0);
         appendprocess++;
+        input_addP.setText(String.valueOf(appendprocess));
         System.out.println(appendprocess);
 
       
@@ -716,7 +719,7 @@ public class Safety extends javax.swing.JPanel {
             max.setRowCount(max.getRowCount() - 1);
             alloc.setRowCount(alloc.getRowCount() - 1);
             appendprocess--;
-
+            input_addP.setText(String.valueOf(appendprocess));
            
         }
         else{
@@ -747,6 +750,7 @@ public class Safety extends javax.swing.JPanel {
           max_model.setColumnCount(max_model.getColumnCount()-1);
           avail_model.setColumnCount(avail_model.getColumnCount()-1);
           current_resource--;
+          input_addR.setText(String.valueOf(current_resource));
         }
         else{
             System.out.println("cant subtract anymore");
@@ -774,6 +778,7 @@ public class Safety extends javax.swing.JPanel {
           max_model.setColumnCount(max_model.getColumnCount()+1);
           avail_model.setColumnCount(avail_model.getColumnCount()+1);
           current_resource++;
+          input_addR.setText(String.valueOf(current_resource));
 
        } catch (Exception e) {
         System.out.println("Fix this bug!");
