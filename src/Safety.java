@@ -23,13 +23,17 @@ public class Safety extends javax.swing.JPanel {
     public void reset(){
         defaultprocess = 3;
         appendprocess = 0;
+        defaultresource= defaultprocess;
+        current_resource = appendprocess;
+
         removeAll();
         initComponents();
     }
     
     int defaultprocess = 3;
     int appendprocess = 0;
-    
+    int defaultresource= 3;
+    int current_resource = 0;
 
    
     public void table_design(JTable table){
@@ -41,6 +45,7 @@ public class Safety extends javax.swing.JPanel {
 
     public void initComponents() {
         appendprocess = defaultprocess; 
+        current_resource = defaultresource; 
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         input_availtable_scroll = new javax.swing.JScrollPane();
@@ -129,8 +134,14 @@ public class Safety extends javax.swing.JPanel {
                 "A", "B", "C"
             }
         ) {
+
+
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -160,14 +171,20 @@ public class Safety extends javax.swing.JPanel {
         input_maxtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_maxtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "A", "B", "C"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -195,6 +212,9 @@ public class Safety extends javax.swing.JPanel {
         input_processtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_processtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {"P1"},
+                {"P2"},
+                {"P3"}
 
             },
             new String [] {
@@ -236,6 +256,9 @@ public class Safety extends javax.swing.JPanel {
         input_alloctable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_alloctable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
 
             },
             new String [] {
@@ -243,10 +266,14 @@ public class Safety extends javax.swing.JPanel {
             }
         ) {
             Class [] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -338,6 +365,7 @@ public class Safety extends javax.swing.JPanel {
         });
         add(input_minusprocess);
         input_minusprocess.setBounds(270, 450, 40, 40);
+        input_minusprocess.setEnabled(false);
 
         input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png"))); // NOI18N
         input_addprocess.setBorder(null);
@@ -508,18 +536,20 @@ public class Safety extends javax.swing.JPanel {
         table_design(input_maxtable);
         table_design(input_availtable);
 
-        process = access_models(input_alloctable, "process");
-        max = access_models(input_maxtable, "max");
-        alloc = access_models(input_alloctable, "alloc");
+        // process = access_models(input_alloctable, "process");
+        // max = access_models(input_maxtable, "max");
+        // alloc = access_models(input_alloctable, "alloc");
          
         
-        process.setRowCount(defaultprocess);
-        max.setRowCount(defaultprocess);
-        alloc.setRowCount(defaultprocess);
+        // process.setRowCount(defaultprocess);
+        // // process.setColumnCount(defaultprocess);
+        // max.setRowCount(defaultprocess);
+        // alloc.setRowCount(defaultprocess);
 
-        for(int i = 1; i <= defaultprocess; i++){
-            process.setValueAt("P"+ i, i-1, 0);
-        }
+
+        // for(int i = 1; i <= defaultprocess; i++){
+        //     process.setValueAt("P"+ i, i-1, 0);
+        // }
 
         
 
@@ -573,6 +603,7 @@ public class Safety extends javax.swing.JPanel {
    
    
     private void input_importActionPerformed(java.awt.event.ActionEvent evt) {
+       
 
        
        
@@ -629,7 +660,7 @@ public class Safety extends javax.swing.JPanel {
 
     private void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {    
         
-        
+        input_minusprocess.setEnabled(true);
 
         process = access_models(input_alloctable, "process");
         max = access_models(input_maxtable, "max");
@@ -673,7 +704,8 @@ public class Safety extends javax.swing.JPanel {
     }                                              
 
     private void input_minusprocessActionPerformed(java.awt.event.ActionEvent evt) {
-        if(process.getRowCount() > 3){
+        int getRowCount = process.getRowCount();
+        if(getRowCount > 3){
         
         process = access_models(input_alloctable, "process");
         max = access_models(input_maxtable, "max");
@@ -704,9 +736,22 @@ public class Safety extends javax.swing.JPanel {
         input_minusresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png")));
     }                                               
 
-    private void input_minusresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
-    }                                                   
+    private void input_minusresourceActionPerformed(java.awt.event.ActionEvent evt) {        
+                                              
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+       ;
+        if( current_resource > 3){     
+          alloc_model.setColumnCount(alloc_model.getColumnCount()-1);
+          max_model.setColumnCount(max_model.getColumnCount()-1);
+          avail_model.setColumnCount(avail_model.getColumnCount()-1);
+          current_resource--;
+        }
+        else{
+            System.out.println("cant subtract anymore");
+        }
+    }
 
     private void input_addresourceMouseEntered(java.awt.event.MouseEvent evt) {                                               
        
@@ -717,12 +762,23 @@ public class Safety extends javax.swing.JPanel {
         input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png")));
     }                                             
 
-    private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {                
+    private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {         
         input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
-        process = access_models(input_alloctable, "process");
-        max = access_models(input_maxtable, "max");
-        alloc = access_models(input_alloctable, "alloc");
-        available = access_models(input_availtable, "avail");
+
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+          
+       try {
+          alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
+          max_model.setColumnCount(max_model.getColumnCount()+1);
+          avail_model.setColumnCount(avail_model.getColumnCount()+1);
+          current_resource++;
+
+       } catch (Exception e) {
+        System.out.println("Fix this bug!");
+        // TODO: handle exception
+       }
         
     }     
 

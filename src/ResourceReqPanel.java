@@ -599,7 +599,8 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png")));
     }                                        
 
-    private void input_importActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void input_importActionPerformed(java.awt.event.ActionEvent evt) {      
+      
         
     }                                            
 
@@ -641,6 +642,8 @@ public class ResourceReqPanel extends javax.swing.JPanel {
 
     private void input_addresourceMouseEntered(java.awt.event.MouseEvent evt) {                                               
         input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
+
+          
     }                                              
 
     private void input_addresourceMouseExited(java.awt.event.MouseEvent evt) {                                              
@@ -649,6 +652,11 @@ public class ResourceReqPanel extends javax.swing.JPanel {
 
     private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
+
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+          javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+            alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
+            max_model.setColumnCount(max_model.getColumnCount()+1);
     }                                                 
 
     private void input_minusprocessMouseEntered(java.awt.event.MouseEvent evt) {                                                
