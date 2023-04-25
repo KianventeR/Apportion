@@ -362,10 +362,14 @@ public class Output extends javax.swing.JPanel {
     }
 
     private void input_safetyMouseEntered(java.awt.event.MouseEvent evt) {
+
+        input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/request_after.png"))); 
         
     }
 
     private void input_safetyMouseExited(java.awt.event.MouseEvent evt) {
+
+        input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/request_before.png"))); 
         
     }
 

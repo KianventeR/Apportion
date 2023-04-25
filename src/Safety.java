@@ -1,11 +1,42 @@
 import java.awt.Color;
+import java.io.File;
+import java.util.Random;
+import java.util.Scanner;
 
+import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Safety extends javax.swing.JPanel {
+   
     public Safety() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
+
+    public void reset(){
+        pid = 1;
+        removeAll();
+        initComponents();
+    }
+    
+    public int pid = 1;
+    public int alloc_a;
+    public int alloc_b;
+    public int alloc_c;
+    public int max_a;
+    public int max_b;
+    public int max_c;
+    public int avail_a;
+    public int avail_b;
+    public int avail_c;
+
 
     public void header_design(JTable table){
         table.getTableHeader().setFont(new java.awt.Font("Poppins", 1, 12));
@@ -19,7 +50,7 @@ public class Safety extends javax.swing.JPanel {
 
     private void initComponents() {
         
-     
+       
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         input_availtable_scroll = new javax.swing.JScrollPane();
@@ -34,9 +65,9 @@ public class Safety extends javax.swing.JPanel {
         input_random = new javax.swing.JButton();
         input_import = new javax.swing.JButton();
         input_return = new javax.swing.JButton();
-        input_av_resource3 = new javax.swing.JTextField();
-        input_av_resource2 = new javax.swing.JTextField();
-        input_av_resource1 = new javax.swing.JTextField();
+        input_av_3 = new javax.swing.JTextField();
+        input_av_2 = new javax.swing.JTextField();
+        input_av_1 = new javax.swing.JTextField();
         input_max_3 = new javax.swing.JTextField();
         input_max_2 = new javax.swing.JTextField();
         input_max_1 = new javax.swing.JTextField();
@@ -122,7 +153,7 @@ public class Safety extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        input_availtable.setColumnSelectionAllowed(true);
+        input_availtable.setColumnSelectionAllowed(false);
         input_availtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_availtable.setFillsViewportHeight(true);
         input_availtable.setGridColor(new java.awt.Color(0, 0, 0));
@@ -170,7 +201,7 @@ public class Safety extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        input_maxtable.setColumnSelectionAllowed(true);
+        input_maxtable.setColumnSelectionAllowed(false);
         input_maxtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_maxtable.setFillsViewportHeight(true);
         input_maxtable.setGridColor(new java.awt.Color(0, 0, 0));
@@ -199,7 +230,7 @@ public class Safety extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -213,7 +244,7 @@ public class Safety extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        input_alloctable.setColumnSelectionAllowed(true);
+        input_alloctable.setColumnSelectionAllowed(false);
         input_alloctable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_alloctable.setFillsViewportHeight(true);
         input_alloctable.setGridColor(new java.awt.Color(0, 0, 0));
@@ -358,32 +389,32 @@ public class Safety extends javax.swing.JPanel {
         add(input_return);
         input_return.setBounds(990, 630, 70, 70);
         
-        input_av_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_av_resource3.setForeground(new java.awt.Color(0, 0, 0));
-        input_av_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_av_resource3.setToolTipText(null);
-        input_av_resource3.setBorder(null);
-        input_av_resource3.setOpaque(false);
-        add(input_av_resource3);
-        input_av_resource3.setBounds(830, 460, 50, 20);
+        input_av_3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
+        input_av_3.setForeground(new java.awt.Color(0, 0, 0));
+        input_av_3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        input_av_3.setToolTipText(null);
+        input_av_3.setBorder(null);
+        input_av_3.setOpaque(false);
+        add(input_av_3);
+        input_av_3.setBounds(830, 460, 50, 20);
 
-        input_av_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_av_resource2.setForeground(new java.awt.Color(0, 0, 0));
-        input_av_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_av_resource2.setToolTipText(null);
-        input_av_resource2.setBorder(null);
-        input_av_resource2.setOpaque(false);
-        add(input_av_resource2);
-        input_av_resource2.setBounds(770, 460, 50, 20);
+        input_av_2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
+        input_av_2.setForeground(new java.awt.Color(0, 0, 0));
+        input_av_2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        input_av_2.setToolTipText(null);
+        input_av_2.setBorder(null);
+        input_av_2.setOpaque(false);
+        add(input_av_2);
+        input_av_2.setBounds(770, 460, 50, 20);
 
-        input_av_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_av_resource1.setForeground(new java.awt.Color(0, 0, 0));
-        input_av_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_av_resource1.setToolTipText(null);
-        input_av_resource1.setBorder(null);
-        input_av_resource1.setOpaque(false);
-        add(input_av_resource1);
-        input_av_resource1.setBounds(710, 460, 50, 20);
+        input_av_1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
+        input_av_1.setForeground(new java.awt.Color(0, 0, 0));
+        input_av_1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        input_av_1.setToolTipText(null);
+        input_av_1.setBorder(null);
+        input_av_1.setOpaque(false);
+        add(input_av_1);
+        input_av_1.setBounds(710, 460, 50, 20);
 
         input_max_3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
         input_max_3.setForeground(new java.awt.Color(0, 0, 0));
@@ -445,6 +476,7 @@ public class Safety extends javax.swing.JPanel {
         input_alloc_pid.setToolTipText(null);
         input_alloc_pid.setBorder(null);
         input_alloc_pid.setOpaque(false);
+        input_alloc_pid.setEditable(false);
         add(input_alloc_pid);
         input_alloc_pid.setBounds(150, 460, 50, 20);
 
@@ -486,6 +518,8 @@ public class Safety extends javax.swing.JPanel {
         table_design(input_alloctable);
         table_design(input_maxtable);
 
+        input_alloc_pid.setText(String.valueOf(pid));
+
     }
 
     private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {
@@ -522,6 +556,7 @@ public class Safety extends javax.swing.JPanel {
 
     private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {
         Apportion.card.show(Apportion.mainPanel, "2");
+        reset();
     }
 
     private void input_importMouseEntered(java.awt.event.MouseEvent evt) {
@@ -531,9 +566,96 @@ public class Safety extends javax.swing.JPanel {
     private void input_importMouseExited(java.awt.event.MouseEvent evt) {
         input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png")));
     }
-
+   
+   
     private void input_importActionPerformed(java.awt.event.ActionEvent evt) {
+
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+        alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
+
+        final JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+        boolean availdone = false, request = false;
+        File file = fc.getSelectedFile();
+
         
+        
+      
+        try (Scanner read = new Scanner(file)) {
+            if(alloc_model.getRowCount() > 1){
+              while(alloc_model.getRowCount()!= 0){
+                alloc_model.removeRow(0);
+                max_model.removeRow(0);
+              }
+              avail_model.removeRow(0);
+            }
+            read.useDelimiter(" ");
+            
+        String process, allocA, allocB, allocC, maxA, maxB, maxC, availA, availB, availC, processReq, reqA, reqB, reqC;
+
+        while(read.hasNext()){
+            process = read.next();
+            allocA = read.next();
+            allocB = read.next();
+            allocC = read.next();
+            maxA = read.next();
+            maxB = read.next();
+            maxC = read.next();
+            if(!availdone){
+            availA = read.next();
+            availB = read.next();
+            availC = read.next();
+            Object [] avail_row = {availA, availB, availC};
+            avail_model.addRow(avail_row);
+            availdone = true;
+            }
+
+            if(!request){
+                processReq = read.next();
+                reqA = read.next();
+                reqB = read.next();
+                reqC = read.next();
+                // Object [] avail_row = {reqA, reqB, reqC};
+                // avail_model.addRow(avail_row);
+                request = true;
+                }
+
+            Object[] alloc_row = {"P" + process, allocA, allocB, allocC};
+            Object [] max_row = {maxA, maxB, maxC};
+            
+            alloc_model.addRow(alloc_row);
+            max_model.addRow(max_row);
+            disable_input();
+           
+            
+        }
+
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        
+    }   
+
+    private void disable_input() {
+        input_alloc_pid.setText(String.valueOf(input_alloctable.getRowCount()));
+        input_alloc.setEnabled(false);
+        input_avail.setEnabled(false);
+        input_avaialable.setEnabled(false);
+        input_av_1.setEnabled(false);
+        input_av_2.setEnabled(false);
+        input_av_3.setEnabled(false);
+        input_alloc_1.setEnabled(false);
+        input_alloc_2.setEnabled(false);
+        input_alloc_3.setEnabled(false);
+        input_max_1.setEnabled(false);
+        input_max_2.setEnabled(false);
+        input_max_3.setEnabled(false);
+        add_process.setEnabled(false);
+        input_random.setEnabled(false);
+
     }
 
     private void input_randomMouseEntered(java.awt.event.MouseEvent evt) {
@@ -545,7 +667,33 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void input_randomActionPerformed(java.awt.event.ActionEvent evt) {
+        int upperbound, lowerbound, seed;
+        upperbound = 10;
+        lowerbound = 1;   
+        seed = (int) System.currentTimeMillis();
+        Random rand = new Random(seed);
+        int random1 = rand.nextInt(upperbound-lowerbound) + lowerbound;         
+        int random2 = rand.nextInt(upperbound-lowerbound) + lowerbound;
+        int random3 = rand.nextInt(10-lowerbound) + lowerbound;
+
+        input_rand(random1, random2, random3, rand);
         
+    }
+
+    private void input_rand(int random1, int random2, int random3, Random rand) {
+        input_alloc_1.setText(String.valueOf(rand.nextInt(random3)+ 1));
+        input_alloc_2.setText(String.valueOf(rand.nextInt(random3) + 1));
+        input_alloc_3.setText(String.valueOf(rand.nextInt(random3)+ 1));
+
+        input_max_1.setText(String.valueOf(rand.nextInt(random1)+ 1));
+        input_max_2.setText(String.valueOf(rand.nextInt(random2)+ 1));
+        input_max_3.setText(String.valueOf(rand.nextInt(random3)+ 1));
+
+        
+        input_av_1.setText(String.valueOf(random3));
+        input_av_2.setText(String.valueOf(random1));
+        input_av_3.setText(String.valueOf(random2));
+     
     }
 
     private void input_safetyActionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,22 +716,14 @@ public class Safety extends javax.swing.JPanel {
         add_process.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/add_before.png")));
     }
     
-    public String pid;
-    public int alloc_a;
-    public int alloc_b;
-    public int alloc_c;
-    public int max_a;
-    public int max_b;
-    public int max_c;
-    public int avail_a;
-    public int avail_b;
-    public int avail_c;
+  
+   
 
     private void add_processActionPerformed(java.awt.event.ActionEvent evt) {
         javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
         javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
         try {
-            pid = input_alloc_pid.getText();
+            pid = Integer.parseInt(input_alloc_pid.getText());
             alloc_a = Integer.parseInt(input_alloc_1.getText());
             alloc_b = Integer.parseInt(input_alloc_2.getText());
             alloc_c = Integer.parseInt(input_alloc_3.getText());
@@ -591,28 +731,43 @@ public class Safety extends javax.swing.JPanel {
             max_b = Integer.parseInt(input_max_2.getText());
             max_c = Integer.parseInt(input_max_3.getText());
             
-            Object[] alloc_row = {pid, alloc_a, alloc_b, alloc_c};
+            Object[] alloc_row = {"P"+pid, alloc_a, alloc_b, alloc_c};
             Object[] max_row = {max_a, max_b, max_c};
 
             alloc_model.addRow(alloc_row);
             max_model.addRow(max_row);
+            
+            pid++;
 
             clear_in();
         } catch (Exception e) {
             System.out.println("Fix this bug!");
             // TODO: handle exception
         }
+
+    
         
     }
 
     private void clear_in() {
-        input_alloc_pid.setText("");
+        input_alloc_pid.setText(String.valueOf(pid));
         input_alloc_1.setText("");
         input_alloc_2.setText("");
         input_alloc_3.setText("");        
         input_max_1.setText("");
         input_max_2.setText("");
         input_max_3.setText("");
+    }
+
+    private void clear_avail() {
+       input_avaialable.setEnabled(false);
+       input_av_1.setText("");
+       input_av_2.setText("");
+       input_av_3.setText("");
+       input_av_1.setEnabled(false);
+       input_av_2.setEnabled(false);
+       input_av_3.setEnabled(false);
+       input_avail.setEnabled(false);
     }
 
     private void input_avaialableMouseEntered(java.awt.event.MouseEvent evt) {
@@ -624,6 +779,22 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void input_avaialableActionPerformed(java.awt.event.ActionEvent evt) {
+
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+        try {
+            avail_a = Integer.parseInt(input_av_1.getText());
+            avail_b = Integer.parseInt(input_av_2.getText());
+            avail_c = Integer.parseInt(input_av_3.getText());
+
+            Object[] avail_row = {avail_a, avail_b, avail_c};
+            avail_model.addRow(avail_row);
+
+            clear_avail();
+           
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         
     }
 
@@ -632,9 +803,9 @@ public class Safety extends javax.swing.JPanel {
     private javax.swing.JTextField input_alloc_1;
     private javax.swing.JTextField input_alloc_2;
     private javax.swing.JTextField input_alloc_3;
-    private javax.swing.JTextField input_av_resource1;
-    private javax.swing.JTextField input_av_resource2;
-    private javax.swing.JTextField input_av_resource3;
+    private javax.swing.JTextField input_av_1;
+    private javax.swing.JTextField input_av_2;
+    private javax.swing.JTextField input_av_3;
     private javax.swing.JLabel input_alloc;
     private javax.swing.JTable input_alloctable;
     private javax.swing.JLabel input_alloctableLabel;
