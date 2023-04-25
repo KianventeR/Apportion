@@ -230,7 +230,7 @@ public class Safety extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -573,6 +573,7 @@ public class Safety extends javax.swing.JPanel {
         javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
         javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
         javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+        alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
 
         final JFileChooser fc = new JFileChooser();
         fc.showOpenDialog(null);
