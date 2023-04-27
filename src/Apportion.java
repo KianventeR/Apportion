@@ -16,6 +16,7 @@ public class Apportion extends javax.swing.JFrame {
     public static Output output = new Output();
     
     public static boolean sound = true;
+
     
     public Apportion() {
         
@@ -41,7 +42,7 @@ public class Apportion extends javax.swing.JFrame {
         mainFrame.setLocationRelativeTo(null);
         
         card.show(mainPanel, "1");
-//        Music.bgMusic();
+        Music.bgMusic();
             
         new java.util.Timer().schedule(new java.util.TimerTask() {
             @Override

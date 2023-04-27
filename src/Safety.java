@@ -9,7 +9,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Safety extends javax.swing.JPanel {
-   
     public Safety() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -123,7 +122,7 @@ public class Safety extends javax.swing.JPanel {
         add(minimize);
         minimize.setBounds(990, 10, 40, 30);
 
-        input_availtable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        input_availtable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         input_availtable_scroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
@@ -149,6 +148,7 @@ public class Safety extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        input_availtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_availtable.setColumnSelectionAllowed(true);
         input_availtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_availtable.setFillsViewportHeight(true);
@@ -162,12 +162,15 @@ public class Safety extends javax.swing.JPanel {
         input_availtable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_availtable.getColumnModel().getColumnCount() > 0) {
             input_availtable.getColumnModel().getColumn(0).setResizable(false);
+            input_availtable.getColumnModel().getColumn(0).setPreferredWidth(50);
             input_availtable.getColumnModel().getColumn(1).setResizable(false);
+            input_availtable.getColumnModel().getColumn(1).setPreferredWidth(50);
             input_availtable.getColumnModel().getColumn(2).setResizable(false);
+            input_availtable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         add(input_availtable_scroll);
-        input_availtable_scroll.setBounds(710, 140, 270, 50);
+        input_availtable_scroll.setBounds(710, 140, 270, 70);
 
         input_maxtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_maxtable.setModel(new javax.swing.table.DefaultTableModel(
@@ -192,6 +195,7 @@ public class Safety extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        input_maxtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_maxtable.setColumnSelectionAllowed(true);
         input_maxtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_maxtable.setFillsViewportHeight(true);
@@ -203,8 +207,11 @@ public class Safety extends javax.swing.JPanel {
         input_maxtable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_maxtable.getColumnModel().getColumnCount() > 0) {
             input_maxtable.getColumnModel().getColumn(0).setResizable(false);
+            input_maxtable.getColumnModel().getColumn(0).setPreferredWidth(50);
             input_maxtable.getColumnModel().getColumn(1).setResizable(false);
+            input_maxtable.getColumnModel().getColumn(1).setPreferredWidth(50);
             input_maxtable.getColumnModel().getColumn(2).setResizable(false);
+            input_maxtable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         add(input_maxtable_scroll);
@@ -247,6 +254,7 @@ public class Safety extends javax.swing.JPanel {
         input_processtable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_processtable.getColumnModel().getColumnCount() > 0) {
             input_processtable.getColumnModel().getColumn(0).setResizable(false);
+            input_processtable.getColumnModel().getColumn(0).setPreferredWidth(50);
         }
 
         add(input_processtable_scroll);
@@ -285,6 +293,7 @@ public class Safety extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        input_alloctable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_alloctable.setColumnSelectionAllowed(true);
         input_alloctable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_alloctable.setFillsViewportHeight(true);
@@ -297,8 +306,11 @@ public class Safety extends javax.swing.JPanel {
         input_alloctable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_alloctable.getColumnModel().getColumnCount() > 0) {
             input_alloctable.getColumnModel().getColumn(0).setResizable(false);
+            input_alloctable.getColumnModel().getColumn(0).setPreferredWidth(50);
             input_alloctable.getColumnModel().getColumn(1).setResizable(false);
+            input_alloctable.getColumnModel().getColumn(1).setPreferredWidth(50);
             input_alloctable.getColumnModel().getColumn(2).setResizable(false);
+            input_alloctable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         add(input_alloctable_scroll);
@@ -567,6 +579,7 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 
@@ -579,6 +592,7 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
@@ -591,6 +605,7 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.card.show(Apportion.mainPanel, "2");
         reset();
     }
@@ -605,7 +620,7 @@ public class Safety extends javax.swing.JPanel {
    
    
     private void input_importActionPerformed(java.awt.event.ActionEvent evt) {
-       
+        Music.sfx();
 
        
        
@@ -623,7 +638,6 @@ public class Safety extends javax.swing.JPanel {
         } catch (Exception e) {
             
         }
-        
     }   
 
     private void input_randomMouseEntered(java.awt.event.MouseEvent evt) {
@@ -635,11 +649,13 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void input_randomActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        
+        Music.sfx();
+
     } 
 
     private void input_safetyActionPerformed(java.awt.event.ActionEvent evt) {
-        
+        Music.sfx();
+
     }
 
     private void input_safetyMouseExited(java.awt.event.MouseEvent evt) {                                         
@@ -661,14 +677,15 @@ public class Safety extends javax.swing.JPanel {
     javax.swing.table.DefaultTableModel process, max, alloc, available;
 
     private void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {    
-        
+        Music.sfx();
         input_minusprocess.setEnabled(true);
 
-        process = access_models(input_alloctable, "process");
+        process = access_models(input_processtable, "process");
         max = access_models(input_maxtable, "max");
         alloc = access_models(input_alloctable, "alloc");
          
         process.setRowCount(process.getRowCount() + 1);
+        
         max.setRowCount(max.getRowCount() + 1);
         alloc.setRowCount(alloc.getRowCount() + 1);
 
@@ -676,11 +693,6 @@ public class Safety extends javax.swing.JPanel {
         appendprocess++;
         input_addP.setText(String.valueOf(appendprocess));
         System.out.println(appendprocess);
-
-      
-      
-        
-        // TODO add your handling code here:
     }                                                
 
     public javax.swing.table.DefaultTableModel access_models(JTable table, String name) {
@@ -707,6 +719,7 @@ public class Safety extends javax.swing.JPanel {
     }                                              
 
     private void input_minusprocessActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         int getRowCount = process.getRowCount();
         if(getRowCount > 3){
         
@@ -740,7 +753,7 @@ public class Safety extends javax.swing.JPanel {
     }                                               
 
     private void input_minusresourceActionPerformed(java.awt.event.ActionEvent evt) {        
-                                              
+        Music.sfx();                
         javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
         javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
         javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
@@ -758,8 +771,7 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void input_addresourceMouseEntered(java.awt.event.MouseEvent evt) {                                               
-       
-
+       input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
     }                                              
 
     private void input_addresourceMouseExited(java.awt.event.MouseEvent evt) {                                              
@@ -767,22 +779,33 @@ public class Safety extends javax.swing.JPanel {
     }                                             
 
     private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {         
-        input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
+        Music.sfx();
 
         javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
         javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
         javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
           
        try {
-          alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
-          max_model.setColumnCount(max_model.getColumnCount()+1);
-          avail_model.setColumnCount(avail_model.getColumnCount()+1);
-          current_resource++;
-          input_addR.setText(String.valueOf(current_resource));
+            alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
+            max_model.setColumnCount(max_model.getColumnCount()+1);
+            avail_model.setColumnCount(avail_model.getColumnCount()+1);
+
+            if (input_availtable.getColumnModel().getColumnCount() > 0 && input_maxtable.getColumnModel().getColumnCount() > 0 && input_alloctable.getColumnModel().getColumnCount() > 0) {
+                input_availtable.getColumnModel().getColumn(avail_model.getColumnCount()).setResizable(false);
+                input_availtable.getColumnModel().getColumn(avail_model.getColumnCount()).setPreferredWidth(50);
+                input_maxtable.getColumnModel().getColumn(max_model.getColumnCount()).setResizable(false);
+                input_maxtable.getColumnModel().getColumn(max_model.getColumnCount()).setPreferredWidth(50);
+                input_alloctable.getColumnModel().getColumn(alloc_model.getColumnCount()).setResizable(false);
+                input_alloctable.getColumnModel().getColumn(alloc_model.getColumnCount()).setPreferredWidth(50);
+            }
+            
+            current_resource++;
+            input_addR.setText(String.valueOf(current_resource));
 
        } catch (Exception e) {
         System.out.println("Fix this bug!");
-        // TODO: handle exception
+        System.out.println(e);
+        e.printStackTrace();
        }
         
     }     

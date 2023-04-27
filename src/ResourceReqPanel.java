@@ -3,16 +3,16 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class ResourceReqPanel extends javax.swing.JPanel {
     public ResourceReqPanel() {
-        initComponents();
-    }
-                   
-    private void initComponents() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+        initComponents();
+    }
+                   
+    private void initComponents() {
 
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
@@ -94,13 +94,13 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(minimize);
         minimize.setBounds(990, 10, 40, 30);
 
-        input_requesttable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        input_requesttable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         input_requesttable_scroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         input_requesttable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_requesttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "A", "B", "C"
@@ -114,7 +114,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        input_requesttable.setColumnSelectionAllowed(true);
+        input_requesttable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_requesttable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_requesttable.setFillsViewportHeight(true);
         input_requesttable.setGridColor(new java.awt.Color(0, 0, 0));
@@ -122,15 +122,9 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_requesttable.getTableHeader().setResizingAllowed(false);
         input_requesttable.getTableHeader().setReorderingAllowed(false);
         input_requesttable_scroll.setViewportView(input_requesttable);
-        input_requesttable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (input_requesttable.getColumnModel().getColumnCount() > 0) {
-            input_requesttable.getColumnModel().getColumn(0).setResizable(false);
-            input_requesttable.getColumnModel().getColumn(1).setResizable(false);
-            input_requesttable.getColumnModel().getColumn(2).setResizable(false);
-        }
 
         add(input_requesttable_scroll);
-        input_requesttable_scroll.setBounds(800, 230, 210, 40);
+        input_requesttable_scroll.setBounds(800, 250, 220, 70);
 
         input_processtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_processtable.setModel(new javax.swing.table.DefaultTableModel(
@@ -170,13 +164,14 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_processtable_scroll);
         input_processtable_scroll.setBounds(50, 140, 60, 280);
 
-        input_availtable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        input_availtable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         input_availtable_scroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_availtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "A", "B", "C"
@@ -190,7 +185,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        input_availtable.setColumnSelectionAllowed(true);
+        input_availtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_availtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_availtable.setFillsViewportHeight(true);
         input_availtable.setGridColor(new java.awt.Color(0, 0, 0));
@@ -198,15 +193,9 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_availtable.getTableHeader().setResizingAllowed(false);
         input_availtable.getTableHeader().setReorderingAllowed(false);
         input_availtable_scroll.setViewportView(input_availtable);
-        input_availtable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (input_availtable.getColumnModel().getColumnCount() > 0) {
-            input_availtable.getColumnModel().getColumn(0).setResizable(false);
-            input_availtable.getColumnModel().getColumn(1).setResizable(false);
-            input_availtable.getColumnModel().getColumn(2).setResizable(false);
-        }
 
         add(input_availtable_scroll);
-        input_availtable_scroll.setBounds(800, 140, 210, 40);
+        input_availtable_scroll.setBounds(800, 140, 220, 70);
 
         input_needtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_needtable.setModel(new javax.swing.table.DefaultTableModel(
@@ -225,6 +214,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        input_needtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_needtable.setColumnSelectionAllowed(true);
         input_needtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_needtable.setFillsViewportHeight(true);
@@ -260,6 +250,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        input_maxtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_maxtable.setColumnSelectionAllowed(true);
         input_maxtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_maxtable.setFillsViewportHeight(true);
@@ -295,6 +286,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        input_alloctable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_alloctable.setColumnSelectionAllowed(true);
         input_alloctable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_alloctable.setFillsViewportHeight(true);
@@ -518,7 +510,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_requesttableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_requesttableLabel.setText("RESOURCE-REQUEST");
         add(input_requesttableLabel);
-        input_requesttableLabel.setBounds(800, 190, 190, 40);
+        input_requesttableLabel.setBounds(800, 210, 190, 40);
 
         input_availtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
         input_availtableLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -563,7 +555,8 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_before.png")));
     }                                    
 
-    private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {      
+        Music.sfx();                                   
         Apportion.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }                                        
 
@@ -575,7 +568,8 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_before.png")));
     }                                
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {         
+        Music.sfx();                            
         System.exit(0);
     }                                    
 
@@ -587,7 +581,8 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_before.png")));
     }                                        
 
-    private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {      
+        Music.sfx();                                       
         Apportion.card.show(Apportion.mainPanel, "2");
     }                                            
 
@@ -600,7 +595,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
     }                                        
 
     private void input_importActionPerformed(java.awt.event.ActionEvent evt) {      
-      
+        Music.sfx();
         
     }                                            
 
@@ -613,10 +608,11 @@ public class ResourceReqPanel extends javax.swing.JPanel {
     }                                        
 
     private void input_randomActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        
+        Music.sfx();
     }                                            
 
-    private void input_resourcereqActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void input_resourcereqActionPerformed(java.awt.event.ActionEvent evt) {     
+        Music.sfx();                                        
         Apportion.card.show(Apportion.mainPanel, "8");
     }                                            
 
@@ -637,13 +633,12 @@ public class ResourceReqPanel extends javax.swing.JPanel {
     }                                               
 
     private void input_minusresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
+        Music.sfx();
+
     }                                                   
 
     private void input_addresourceMouseEntered(java.awt.event.MouseEvent evt) {                                               
         input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
-
-          
     }                                              
 
     private void input_addresourceMouseExited(java.awt.event.MouseEvent evt) {                                              
@@ -651,12 +646,12 @@ public class ResourceReqPanel extends javax.swing.JPanel {
     }                                             
 
     private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
+        Music.sfx();
 
         javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
-          javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
-            alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
-            max_model.setColumnCount(max_model.getColumnCount()+1);
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
+        max_model.setColumnCount(max_model.getColumnCount()+1);
     }                                                 
 
     private void input_minusprocessMouseEntered(java.awt.event.MouseEvent evt) {                                                
@@ -668,7 +663,8 @@ public class ResourceReqPanel extends javax.swing.JPanel {
     }                                              
 
     private void input_minusprocessActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        // TODO add your handling code here:
+        Music.sfx();
+
     }                                                  
 
     private void input_addprocessMouseEntered(java.awt.event.MouseEvent evt) {                                              
@@ -680,7 +676,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
     }                                            
 
     private void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
+        Music.sfx();
     }                          
              
     private javax.swing.JButton exit;

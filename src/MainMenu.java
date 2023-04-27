@@ -8,6 +8,7 @@ public class MainMenu extends javax.swing.JPanel {
         menu_about = new javax.swing.JButton();
         menu_help = new javax.swing.JButton();
         menu_start = new javax.swing.JButton();
+        menu_audio = new javax.swing.JButton();
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         menu_bg = new javax.swing.JLabel();
@@ -101,6 +102,27 @@ public class MainMenu extends javax.swing.JPanel {
         add(menu_start);
         menu_start.setBounds(90, 300, 200, 164);
 
+        menu_audio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/mute.png"))); // NOI18N
+        menu_audio.setBorder(null);
+        menu_audio.setBorderPainted(false);
+        menu_audio.setContentAreaFilled(false);
+        menu_audio.setFocusPainted(false);
+        menu_audio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                menu_audioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                menu_audioMouseExited(evt);
+            }
+        });
+        menu_audio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_audioActionPerformed(evt);
+            }
+        });
+        add(menu_audio);
+        menu_audio.setBounds(30, 620, 90, 70);
+
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_before.png"))); 
         exit.setBorder(null);
         exit.setBorderPainted(false);
@@ -159,6 +181,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
@@ -171,6 +194,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 
@@ -183,6 +207,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void menu_startActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.card.show(Apportion.mainPanel, "5");
     }
 
@@ -195,6 +220,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void menu_aboutActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.card.show(Apportion.mainPanel, "4");
     }
 
@@ -207,6 +233,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void menu_helpActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.card.show(Apportion.mainPanel, "3");
     }
 
@@ -219,11 +246,44 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void menu_exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
+    private void menu_audioMouseEntered(java.awt.event.MouseEvent evt) {             
+        if(Apportion.sound == true) {
+            menu_audio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/mute_after.png")));
+        } else {
+            menu_audio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/muteX_after.png")));
+        }                   
+        
+    }                                       
+
+    private void menu_audioMouseExited(java.awt.event.MouseEvent evt) {             
+        if(Apportion.sound == true) {
+            menu_audio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/mute.png")));
+        } else {
+            menu_audio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/muteX.png")));
+        }             
+        
+    }                                      
+
+    private void menu_audioActionPerformed(java.awt.event.ActionEvent evt) {        
+        Music.sfx();                                   
+        if(Apportion.sound == true) {
+            Apportion.sound = false;
+            Music.bgMusic.pause();
+            menu_audio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/muteX.png")));
+        } else {
+            Apportion.sound = true;
+            Music.bgMusic.play();
+            menu_audio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/mute.png")));
+        }
+    }       
+
     private javax.swing.JButton exit;
     private javax.swing.JButton menu_about;
+    private javax.swing.JButton menu_audio;
     private javax.swing.JLabel menu_bg;
     private javax.swing.JButton menu_exit;
     private javax.swing.JButton menu_help;
