@@ -1,46 +1,86 @@
+import java.awt.Color;
+import java.io.File;
+import java.util.Random;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
+import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class Safety extends javax.swing.JPanel {
     public Safety() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
 
-    private void initComponents() {
+    public void reset(){
+        defaultprocess = 3;
+        appendprocess = 0;
+        defaultresource= defaultprocess;
+        current_resource = appendprocess;
+
+        removeAll();
+        initComponents();
+    }
+    
+    int defaultprocess = 3;
+    int appendprocess = 0;
+    int defaultresource= 3;
+    int current_resource = 0;
+
+   
+    public void table_design(JTable table){
+        table.setFont(new java.awt.Font("Poppins", 0, 12)); 
+        table.getTableHeader().setFont(new java.awt.Font("Poppins", 1, 12));
+        table.getTableHeader().setOpaque(false);
+        table.getTableHeader().setBackground(Color.LIGHT_GRAY);
+    }
+
+    public void initComponents() {
+        appendprocess = defaultprocess; 
+        current_resource = defaultresource; 
+      
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         input_availtable_scroll = new javax.swing.JScrollPane();
         input_availtable = new javax.swing.JTable();
         input_maxtable_scroll = new javax.swing.JScrollPane();
         input_maxtable = new javax.swing.JTable();
+        input_processtable_scroll = new javax.swing.JScrollPane();
+        input_processtable = new javax.swing.JTable();
         input_alloctable_scroll = new javax.swing.JScrollPane();
         input_alloctable = new javax.swing.JTable();
-        input_inAllocMax = new javax.swing.JButton();
-        input_inAvail = new javax.swing.JButton();
+        input_minusresource = new javax.swing.JButton();
+        input_addresource = new javax.swing.JButton();
+        input_minusprocess = new javax.swing.JButton();
+        input_addprocess = new javax.swing.JButton();
         input_safety = new javax.swing.JButton();
         input_random = new javax.swing.JButton();
         input_import = new javax.swing.JButton();
         input_return = new javax.swing.JButton();
-        input_a2_resource3 = new javax.swing.JTextField();
-        input_a2_resource2 = new javax.swing.JTextField();
-        input_a2_resource1 = new javax.swing.JTextField();
-        input_m1_resource3 = new javax.swing.JTextField();
-        input_m1_resource2 = new javax.swing.JTextField();
-        input_m1_resource1 = new javax.swing.JTextField();
-        input_a1_resource3 = new javax.swing.JTextField();
-        input_a1_resource2 = new javax.swing.JTextField();
-        input_a1_resource1 = new javax.swing.JTextField();
-        input_a1_process = new javax.swing.JTextField();
+        input_addR = new javax.swing.JTextField();
+        input_addP = new javax.swing.JTextField();
+        input_resourcenum = new javax.swing.JLabel();
+        input_processnum = new javax.swing.JLabel();
         input_availtableLabel = new javax.swing.JLabel();
         input_maxtableLabel = new javax.swing.JLabel();
         input_alloctableLabel = new javax.swing.JLabel();
-        input_alloc = new javax.swing.JLabel();
-        input_avail = new javax.swing.JLabel();
         input_bg = new javax.swing.JLabel();
+
+       
 
         setMaximumSize(new java.awt.Dimension(1080, 720));
         setMinimumSize(new java.awt.Dimension(1080, 720));
         setPreferredSize(new java.awt.Dimension(1080, 720));
         setLayout(null);
 
-        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_before.png"))); 
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_before.png"))); // NOI18N
         exit.setBorder(null);
         exit.setBorderPainted(false);
         exit.setContentAreaFilled(false);
@@ -61,7 +101,7 @@ public class Safety extends javax.swing.JPanel {
         add(exit);
         exit.setBounds(1030, 10, 40, 30);
 
-        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_before.png"))); 
+        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_before.png"))); // NOI18N
         minimize.setBorder(null);
         minimize.setBorderPainted(false);
         minimize.setContentAreaFilled(false);
@@ -82,23 +122,33 @@ public class Safety extends javax.swing.JPanel {
         add(minimize);
         minimize.setBounds(990, 10, 40, 30);
 
-        input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); 
+        input_availtable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        input_availtable_scroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_availtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null}
             },
             new String [] {
                 "A", "B", "C"
             }
         ) {
+
+
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        input_availtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_availtable.setColumnSelectionAllowed(true);
         input_availtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_availtable.setFillsViewportHeight(true);
@@ -106,34 +156,46 @@ public class Safety extends javax.swing.JPanel {
         input_availtable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_availtable.getTableHeader().setResizingAllowed(false);
         input_availtable.getTableHeader().setReorderingAllowed(false);
+
+
         input_availtable_scroll.setViewportView(input_availtable);
         input_availtable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_availtable.getColumnModel().getColumnCount() > 0) {
             input_availtable.getColumnModel().getColumn(0).setResizable(false);
+            input_availtable.getColumnModel().getColumn(0).setPreferredWidth(50);
             input_availtable.getColumnModel().getColumn(1).setResizable(false);
+            input_availtable.getColumnModel().getColumn(1).setPreferredWidth(50);
             input_availtable.getColumnModel().getColumn(2).setResizable(false);
+            input_availtable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         add(input_availtable_scroll);
-        input_availtable_scroll.setBounds(660, 110, 210, 40);
+        input_availtable_scroll.setBounds(710, 140, 270, 70);
 
-        input_maxtable.setFont(new java.awt.Font("Poppins", 0, 11)); 
+        input_maxtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         input_maxtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "A", "B", "C"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        input_maxtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_maxtable.setColumnSelectionAllowed(true);
         input_maxtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_maxtable.setFillsViewportHeight(true);
@@ -145,27 +207,33 @@ public class Safety extends javax.swing.JPanel {
         input_maxtable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_maxtable.getColumnModel().getColumnCount() > 0) {
             input_maxtable.getColumnModel().getColumn(0).setResizable(false);
+            input_maxtable.getColumnModel().getColumn(0).setPreferredWidth(50);
             input_maxtable.getColumnModel().getColumn(1).setResizable(false);
+            input_maxtable.getColumnModel().getColumn(1).setPreferredWidth(50);
             input_maxtable.getColumnModel().getColumn(2).setResizable(false);
+            input_maxtable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         add(input_maxtable_scroll);
-        input_maxtable_scroll.setBounds(460, 110, 190, 280);
+        input_maxtable_scroll.setBounds(430, 140, 270, 280);
 
-        input_alloctable.setFont(new java.awt.Font("Poppins", 0, 11)); 
-        input_alloctable.setModel(new javax.swing.table.DefaultTableModel(
+        input_processtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        input_processtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {"P1"},
+                {"P2"},
+                {"P3"}
 
             },
             new String [] {
-                "Process", "A", "B", "C"
+                "Process"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -176,68 +244,164 @@ public class Safety extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        input_processtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        input_processtable.setFillsViewportHeight(true);
+        input_processtable.setGridColor(new java.awt.Color(0, 0, 0));
+        input_processtable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        input_processtable.getTableHeader().setResizingAllowed(false);
+        input_processtable.getTableHeader().setReorderingAllowed(false);
+        input_processtable_scroll.setViewportView(input_processtable);
+        input_processtable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (input_processtable.getColumnModel().getColumnCount() > 0) {
+            input_processtable.getColumnModel().getColumn(0).setResizable(false);
+            input_processtable.getColumnModel().getColumn(0).setPreferredWidth(50);
+        }
+
+        add(input_processtable_scroll);
+        input_processtable_scroll.setBounds(90, 140, 60, 280);
+
+        
+
+        input_alloctable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        input_alloctable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+
+            },
+            new String [] {
+                "A", "B", "C"
+            }
+        ) {
+            Class [] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        input_alloctable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_alloctable.setColumnSelectionAllowed(true);
         input_alloctable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         input_alloctable.setFillsViewportHeight(true);
-        input_alloctable.setGridColor(new java.awt.Color(0, 0, 0));
+        input_alloctable.setGridColor(Color.black);
         input_alloctable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_alloctable.getTableHeader().setResizingAllowed(false);
         input_alloctable.getTableHeader().setReorderingAllowed(false);
         input_alloctable_scroll.setViewportView(input_alloctable);
+        
         input_alloctable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (input_alloctable.getColumnModel().getColumnCount() > 0) {
             input_alloctable.getColumnModel().getColumn(0).setResizable(false);
+            input_alloctable.getColumnModel().getColumn(0).setPreferredWidth(50);
             input_alloctable.getColumnModel().getColumn(1).setResizable(false);
+            input_alloctable.getColumnModel().getColumn(1).setPreferredWidth(50);
             input_alloctable.getColumnModel().getColumn(2).setResizable(false);
-            input_alloctable.getColumnModel().getColumn(3).setResizable(false);
+            input_alloctable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         add(input_alloctable_scroll);
-        input_alloctable_scroll.setBounds(190, 110, 260, 280);
+        input_alloctable_scroll.setBounds(150, 140, 270, 280);
 
-        input_inAllocMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/add_before.png"))); 
-        input_inAllocMax.setBorder(null);
-        input_inAllocMax.setBorderPainted(false);
-        input_inAllocMax.setContentAreaFilled(false);
-        input_inAllocMax.setFocusPainted(false);
-        input_inAllocMax.addMouseListener(new java.awt.event.MouseAdapter() {
+        input_minusresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png"))); // NOI18N
+        input_minusresource.setBorder(null);
+        input_minusresource.setBorderPainted(false);
+        input_minusresource.setContentAreaFilled(false);
+        input_minusresource.setFocusPainted(false);
+        input_minusresource.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                input_inAllocMaxMouseEntered(evt);
+                input_minusresourceMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                input_inAllocMaxMouseExited(evt);
+                input_minusresourceMouseExited(evt);
             }
         });
-        input_inAllocMax.addActionListener(new java.awt.event.ActionListener() {
+        input_minusresource.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                input_inAllocMaxActionPerformed(evt);
+                input_minusresourceActionPerformed(evt);
             }
         });
-        add(input_inAllocMax);
-        input_inAllocMax.setBounds(320, 490, 130, 20);
+        add(input_minusresource);
+        input_minusresource.setBounds(270, 510, 40, 40);
 
-        input_inAvail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_before.png"))); 
-        input_inAvail.setBorder(null);
-        input_inAvail.setBorderPainted(false);
-        input_inAvail.setContentAreaFilled(false);
-        input_inAvail.setFocusPainted(false);
-        input_inAvail.addMouseListener(new java.awt.event.MouseAdapter() {
+        input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png"))); // NOI18N
+        input_addresource.setBorder(null);
+        input_addresource.setBorderPainted(false);
+        input_addresource.setContentAreaFilled(false);
+        input_addresource.setFocusPainted(false);
+        input_addresource.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                input_inAvailMouseEntered(evt);
+                input_addresourceMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                input_inAvailMouseExited(evt);
+                input_addresourceMouseExited(evt);
             }
         });
-        input_inAvail.addActionListener(new java.awt.event.ActionListener() {
+        input_addresource.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                input_inAvailActionPerformed(evt);
+                input_addresourceActionPerformed(evt);
             }
         });
-        add(input_inAvail);
-        input_inAvail.setBounds(730, 490, 130, 20);
+        add(input_addresource);
+        input_addresource.setBounds(310, 510, 40, 40);
 
-        input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/safety_before.png"))); 
+        input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png"))); // NOI18N
+        input_minusprocess.setBorder(null);
+        input_minusprocess.setBorderPainted(false);
+        input_minusprocess.setContentAreaFilled(false);
+        input_minusprocess.setFocusPainted(false);
+        input_minusprocess.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                input_minusprocessMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                input_minusprocessMouseExited(evt);
+            }
+        });
+        input_minusprocess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_minusprocessActionPerformed(evt);
+            }
+        });
+        add(input_minusprocess);
+        input_minusprocess.setBounds(270, 450, 40, 40);
+        input_minusprocess.setEnabled(false);
+
+        input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png"))); // NOI18N
+        input_addprocess.setBorder(null);
+        input_addprocess.setBorderPainted(false);
+        input_addprocess.setContentAreaFilled(false);
+        input_addprocess.setFocusPainted(false);
+        input_addprocess.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                input_addprocessMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                input_addprocessMouseExited(evt);
+            }
+        });
+        input_addprocess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_addprocessActionPerformed(evt);
+            }
+        });
+        add(input_addprocess);
+        input_addprocess.setBounds(310, 450, 40, 40);
+
+        input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/simulate.png"))); // NOI18N
         input_safety.setBorder(null);
         input_safety.setBorderPainted(false);
         input_safety.setContentAreaFilled(false);
@@ -256,9 +420,9 @@ public class Safety extends javax.swing.JPanel {
             }
         });
         add(input_safety);
-        input_safety.setBounds(410, 580, 280, 60);
+        input_safety.setBounds(540, 470, 200, 60);
 
-        input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_before.png"))); 
+        input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_before.png"))); // NOI18N
         input_random.setBorder(null);
         input_random.setBorderPainted(false);
         input_random.setContentAreaFilled(false);
@@ -277,9 +441,9 @@ public class Safety extends javax.swing.JPanel {
             }
         });
         add(input_random);
-        input_random.setBounds(550, 540, 120, 30);
+        input_random.setBounds(210, 570, 120, 30);
 
-        input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png"))); 
+        input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png"))); // NOI18N
         input_import.setBorder(null);
         input_import.setBorderPainted(false);
         input_import.setContentAreaFilled(false);
@@ -298,9 +462,9 @@ public class Safety extends javax.swing.JPanel {
             }
         });
         add(input_import);
-        input_import.setBounds(430, 540, 112, 30);
+        input_import.setBounds(90, 570, 112, 30);
 
-        input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_before.png"))); 
+        input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_before.png"))); // NOI18N
         input_return.setBorder(null);
         input_return.setBorderPainted(false);
         input_return.setContentAreaFilled(false);
@@ -321,130 +485,89 @@ public class Safety extends javax.swing.JPanel {
         add(input_return);
         input_return.setBounds(990, 630, 70, 70);
 
-        input_a2_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_a2_resource3.setForeground(new java.awt.Color(153, 153, 153));
-        input_a2_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource3.setToolTipText("");
-        input_a2_resource3.setBorder(null);
-        input_a2_resource3.setOpaque(false);
-        add(input_a2_resource3);
-        input_a2_resource3.setBounds(830, 460, 50, 20);
+        input_addR.setEditable(false);
+        input_addR.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_addR.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        input_addR.setText("0");
+        input_addR.setBorder(null);
+        input_addR.setOpaque(false);
+        add(input_addR);
+        input_addR.setBounds(210, 510, 40, 30);
 
-        input_a2_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_a2_resource2.setForeground(new java.awt.Color(153, 153, 153));
-        input_a2_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource2.setToolTipText("");
-        input_a2_resource2.setBorder(null);
-        input_a2_resource2.setOpaque(false);
-        add(input_a2_resource2);
-        input_a2_resource2.setBounds(770, 460, 50, 20);
+        input_addP.setEditable(false);
+        input_addP.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_addP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        input_addP.setText("0");
+        input_addP.setBorder(null);
+        input_addP.setOpaque(false);
+        add(input_addP);
+        input_addP.setBounds(210, 450, 40, 30);
 
-        input_a2_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_a2_resource1.setForeground(new java.awt.Color(153, 153, 153));
-        input_a2_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a2_resource1.setToolTipText("");
-        input_a2_resource1.setBorder(null);
-        input_a2_resource1.setOpaque(false);
-        add(input_a2_resource1);
-        input_a2_resource1.setBounds(710, 460, 50, 20);
+        input_resourcenum.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_resourcenum.setForeground(new java.awt.Color(255, 255, 255));
+        input_resourcenum.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        input_resourcenum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/resource_container.png"))); // NOI18N
+        add(input_resourcenum);
+        input_resourcenum.setBounds(90, 500, 170, 50);
 
-        input_m1_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_m1_resource3.setForeground(new java.awt.Color(153, 153, 153));
-        input_m1_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource3.setToolTipText("");
-        input_m1_resource3.setBorder(null);
-        input_m1_resource3.setOpaque(false);
-        add(input_m1_resource3);
-        input_m1_resource3.setBounds(560, 460, 50, 20);
+        input_processnum.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_processnum.setForeground(new java.awt.Color(255, 255, 255));
+        input_processnum.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        input_processnum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/process_container.png"))); // NOI18N
+        add(input_processnum);
+        input_processnum.setBounds(90, 440, 170, 50);
 
-        input_m1_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_m1_resource2.setForeground(new java.awt.Color(153, 153, 153));
-        input_m1_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource2.setToolTipText("");
-        input_m1_resource2.setBorder(null);
-        input_m1_resource2.setOpaque(false);
-        add(input_m1_resource2);
-        input_m1_resource2.setBounds(490, 460, 50, 20);
-
-        input_m1_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_m1_resource1.setForeground(new java.awt.Color(153, 153, 153));
-        input_m1_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_m1_resource1.setToolTipText("");
-        input_m1_resource1.setBorder(null);
-        input_m1_resource1.setOpaque(false);
-        add(input_m1_resource1);
-        input_m1_resource1.setBounds(430, 460, 50, 20);
-
-        input_a1_resource3.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_a1_resource3.setForeground(new java.awt.Color(153, 153, 153));
-        input_a1_resource3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource3.setToolTipText("");
-        input_a1_resource3.setBorder(null);
-        input_a1_resource3.setOpaque(false);
-        add(input_a1_resource3);
-        input_a1_resource3.setBounds(340, 460, 50, 20);
-
-        input_a1_resource2.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_a1_resource2.setForeground(new java.awt.Color(153, 153, 153));
-        input_a1_resource2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource2.setToolTipText("");
-        input_a1_resource2.setBorder(null);
-        input_a1_resource2.setOpaque(false);
-        add(input_a1_resource2);
-        input_a1_resource2.setBounds(280, 460, 50, 20);
-
-        input_a1_resource1.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_a1_resource1.setForeground(new java.awt.Color(153, 153, 153));
-        input_a1_resource1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_resource1.setToolTipText("");
-        input_a1_resource1.setBorder(null);
-        input_a1_resource1.setOpaque(false);
-        add(input_a1_resource1);
-        input_a1_resource1.setBounds(220, 460, 50, 20);
-
-        input_a1_process.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); 
-        input_a1_process.setForeground(new java.awt.Color(153, 153, 153));
-        input_a1_process.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        input_a1_process.setToolTipText("");
-        input_a1_process.setBorder(null);
-        input_a1_process.setOpaque(false);
-        add(input_a1_process);
-        input_a1_process.setBounds(150, 460, 50, 20);
-
-        input_availtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
+        input_availtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
         input_availtableLabel.setForeground(new java.awt.Color(255, 255, 255));
         input_availtableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_availtableLabel.setText("AVAILABLE");
         add(input_availtableLabel);
-        input_availtableLabel.setBounds(660, 70, 190, 40);
+        input_availtableLabel.setBounds(710, 100, 190, 40);
 
-        input_maxtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
+        input_maxtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
         input_maxtableLabel.setForeground(new java.awt.Color(255, 255, 255));
         input_maxtableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_maxtableLabel.setText("MAX TABLE");
         add(input_maxtableLabel);
-        input_maxtableLabel.setBounds(460, 70, 190, 40);
+        input_maxtableLabel.setBounds(430, 100, 190, 40);
 
-        input_alloctableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
+        input_alloctableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
         input_alloctableLabel.setForeground(new java.awt.Color(255, 255, 255));
         input_alloctableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_alloctableLabel.setText("ALLOCATION TABLE");
         add(input_alloctableLabel);
-        input_alloctableLabel.setBounds(190, 70, 260, 40);
+        input_alloctableLabel.setBounds(90, 100, 260, 40);
 
-        input_alloc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/alloc_max.png"))); 
-        add(input_alloc);
-        input_alloc.setBounds(130, 410, 502, 120);
-
-        input_avail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/available_module.png"))); 
-        add(input_avail);
-        input_avail.setBounds(650, 410, 290, 120);
-
-        input_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_background.png"))); 
+        input_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_background.png"))); // NOI18N
         input_bg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         input_bg.setOpaque(true);
         add(input_bg);
         input_bg.setBounds(0, 0, 1080, 720);
+
+        table_design(input_alloctable);
+        table_design(input_processtable);
+        table_design(input_maxtable);
+        table_design(input_availtable);
+
+        // process = access_models(input_alloctable, "process");
+        // max = access_models(input_maxtable, "max");
+        // alloc = access_models(input_alloctable, "alloc");
+         
+        
+        // process.setRowCount(defaultprocess);
+        // // process.setColumnCount(defaultprocess);
+        // max.setRowCount(defaultprocess);
+        // alloc.setRowCount(defaultprocess);
+
+
+        // for(int i = 1; i <= defaultprocess; i++){
+        //     process.setValueAt("P"+ i, i-1, 0);
+        // }
+        input_addP.setText(String.valueOf(appendprocess));
+        input_addR.setText(String.valueOf(current_resource));
+        
+
+//initcomponents end
     }
 
     private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {
@@ -456,6 +579,7 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 
@@ -468,6 +592,7 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
@@ -480,7 +605,9 @@ public class Safety extends javax.swing.JPanel {
     }
 
     private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.card.show(Apportion.mainPanel, "2");
+        reset();
     }
 
     private void input_importMouseEntered(java.awt.event.MouseEvent evt) {
@@ -490,10 +617,28 @@ public class Safety extends javax.swing.JPanel {
     private void input_importMouseExited(java.awt.event.MouseEvent evt) {
         input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png")));
     }
-
+   
+   
     private void input_importActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
+
+       
+       
+
+        final JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+        boolean availdone = false, request = false;
+        File file = fc.getSelectedFile();
+
         
-    }
+        
+      
+        try (Scanner read = new Scanner(file)) {
+            
+        } catch (Exception e) {
+            
+        }
+    }   
 
     private void input_randomMouseEntered(java.awt.event.MouseEvent evt) {
         input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_after.png")));
@@ -503,73 +648,191 @@ public class Safety extends javax.swing.JPanel {
         input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_before.png")));
     }
 
-    private void input_randomActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
+    private void input_randomActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        Music.sfx();
+
+    } 
 
     private void input_safetyActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
+
+    }
+
+    private void input_safetyMouseExited(java.awt.event.MouseEvent evt) {                                         
+        input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/simulate.png")));
+    }                                        
+
+    private void input_safetyMouseEntered(java.awt.event.MouseEvent evt) {                                          
+        input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/simulate_after.png")));
+    }                                         
+
+    private void input_addprocessMouseEntered(java.awt.event.MouseEvent evt) {                                              
+        input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
+    }                                             
+
+    private void input_addprocessMouseExited(java.awt.event.MouseEvent evt) {                                             
+        input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png")));
+    }                                            
+    
+    javax.swing.table.DefaultTableModel process, max, alloc, available;
+
+    private void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {    
+        Music.sfx();
+        input_minusprocess.setEnabled(true);
+
+        process = access_models(input_processtable, "process");
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+         
+        process.setRowCount(process.getRowCount() + 1);
         
-    }
+        max.setRowCount(max.getRowCount() + 1);
+        alloc.setRowCount(alloc.getRowCount() + 1);
 
-    private void input_safetyMouseExited(java.awt.event.MouseEvent evt) {
-        input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/safety_before.png")));
-    }
+        process.setValueAt("P"+ process.getRowCount(), process.getRowCount()-1, 0);
+        appendprocess++;
+        input_addP.setText(String.valueOf(appendprocess));
+        System.out.println(appendprocess);
+    }                                                
 
-    private void input_safetyMouseEntered(java.awt.event.MouseEvent evt) {
-        input_safety.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/safety_after.png")));
-    }
-
-    private void input_inAllocMaxMouseEntered(java.awt.event.MouseEvent evt) {
-        input_inAllocMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/add_after.png")));
-    }
-
-    private void input_inAllocMaxMouseExited(java.awt.event.MouseEvent evt) {
-        input_inAllocMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/add_before.png")));
-    }
-
-    private void input_inAllocMaxActionPerformed(java.awt.event.ActionEvent evt) {
+    public javax.swing.table.DefaultTableModel access_models(JTable table, String name) {
         
-    }
-
-    private void input_inAvailMouseEntered(java.awt.event.MouseEvent evt) {
-        input_inAvail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_after.png")));
-    }
-
-    private void input_inAvailMouseExited(java.awt.event.MouseEvent evt) {
-        input_inAvail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_before.png")));
-    }
-
-    private void input_inAvailActionPerformed(java.awt.event.ActionEvent evt) {
+        javax.swing.table.DefaultTableModel process_model = (javax.swing.table.DefaultTableModel)input_processtable.getModel();
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
         
+        if(name == "process"){return process_model;}
+        if(name == "alloc"){return alloc_model;}
+        if(name == "max"){return max_model;}
+        if(name == "avail"){return avail_model;}
+        return null;
+
     }
+
+    private void input_minusprocessMouseEntered(java.awt.event.MouseEvent evt) {                                                
+        input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_after.png")));
+    }                                               
+
+    private void input_minusprocessMouseExited(java.awt.event.MouseEvent evt) {                                               
+        input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png")));
+    }                                              
+
+    private void input_minusprocessActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
+        int getRowCount = process.getRowCount();
+        if(getRowCount > 3){
+        
+        process = access_models(input_alloctable, "process");
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+        
+       
+            process.setRowCount(process.getRowCount() - 1);
+            max.setRowCount(max.getRowCount() - 1);
+            alloc.setRowCount(alloc.getRowCount() - 1);
+            appendprocess--;
+            input_addP.setText(String.valueOf(appendprocess));
+           
+        }
+        else{
+           System.out.println("Cannot remove less than 3");
+        }
+   
+      
+                                   
+        // TODO add your handling code here:
+    }                                                  
+
+    private void input_minusresourceMouseEntered(java.awt.event.MouseEvent evt) {                                                 
+        input_minusresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_after.png")));
+    }                                                
+
+    private void input_minusresourceMouseExited(java.awt.event.MouseEvent evt) {                                                
+        input_minusresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png")));
+    }                                               
+
+    private void input_minusresourceActionPerformed(java.awt.event.ActionEvent evt) {        
+        Music.sfx();                
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+       ;
+        if( current_resource > 3){     
+          alloc_model.setColumnCount(alloc_model.getColumnCount()-1);
+          max_model.setColumnCount(max_model.getColumnCount()-1);
+          avail_model.setColumnCount(avail_model.getColumnCount()-1);
+          current_resource--;
+          input_addR.setText(String.valueOf(current_resource));
+        }
+        else{
+            System.out.println("cant subtract anymore");
+        }
+    }
+
+    private void input_addresourceMouseEntered(java.awt.event.MouseEvent evt) {                                               
+       input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
+    }                                              
+
+    private void input_addresourceMouseExited(java.awt.event.MouseEvent evt) {                                              
+        input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png")));
+    }                                             
+
+    private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {         
+        Music.sfx();
+
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+          
+       try {
+            alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
+            max_model.setColumnCount(max_model.getColumnCount()+1);
+            avail_model.setColumnCount(avail_model.getColumnCount()+1);
+
+            if (input_availtable.getColumnModel().getColumnCount() > 0 && input_maxtable.getColumnModel().getColumnCount() > 0 && input_alloctable.getColumnModel().getColumnCount() > 0) {
+                input_availtable.getColumnModel().getColumn(avail_model.getColumnCount()).setResizable(false);
+                input_availtable.getColumnModel().getColumn(avail_model.getColumnCount()).setPreferredWidth(50);
+                input_maxtable.getColumnModel().getColumn(max_model.getColumnCount()).setResizable(false);
+                input_maxtable.getColumnModel().getColumn(max_model.getColumnCount()).setPreferredWidth(50);
+                input_alloctable.getColumnModel().getColumn(alloc_model.getColumnCount()).setResizable(false);
+                input_alloctable.getColumnModel().getColumn(alloc_model.getColumnCount()).setPreferredWidth(50);
+            }
+            
+            current_resource++;
+            input_addR.setText(String.valueOf(current_resource));
+
+       } catch (Exception e) {
+        System.out.println("Fix this bug!");
+        System.out.println(e);
+        e.printStackTrace();
+       }
+        
+    }     
 
     private javax.swing.JButton exit;
-    private javax.swing.JTextField input_a1_process;
-    private javax.swing.JTextField input_a1_resource1;
-    private javax.swing.JTextField input_a1_resource2;
-    private javax.swing.JTextField input_a1_resource3;
-    private javax.swing.JTextField input_a2_resource1;
-    private javax.swing.JTextField input_a2_resource2;
-    private javax.swing.JTextField input_a2_resource3;
-    private javax.swing.JLabel input_alloc;
+    private javax.swing.JTextField input_addP;
+    private javax.swing.JTextField input_addR;
+    private javax.swing.JButton input_addprocess;
+    private javax.swing.JButton input_addresource;
     private javax.swing.JTable input_alloctable;
     private javax.swing.JLabel input_alloctableLabel;
     private javax.swing.JScrollPane input_alloctable_scroll;
-    private javax.swing.JLabel input_avail;
     private javax.swing.JTable input_availtable;
     private javax.swing.JLabel input_availtableLabel;
     private javax.swing.JScrollPane input_availtable_scroll;
     private javax.swing.JLabel input_bg;
     private javax.swing.JButton input_import;
-    private javax.swing.JButton input_inAllocMax;
-    private javax.swing.JButton input_inAvail;
-    private javax.swing.JTextField input_m1_resource1;
-    private javax.swing.JTextField input_m1_resource2;
-    private javax.swing.JTextField input_m1_resource3;
-    private javax.swing.JTable input_maxtable;
+    public javax.swing.JTable input_maxtable;
     private javax.swing.JLabel input_maxtableLabel;
     private javax.swing.JScrollPane input_maxtable_scroll;
+    private javax.swing.JButton input_minusprocess;
+    private javax.swing.JButton input_minusresource;
+    private javax.swing.JLabel input_processnum;
+    public javax.swing.JTable input_processtable;
+    private javax.swing.JScrollPane input_processtable_scroll;
     private javax.swing.JButton input_random;
+    private javax.swing.JLabel input_resourcenum;
     private javax.swing.JButton input_return;
     private javax.swing.JButton input_safety;
     private javax.swing.JButton minimize;

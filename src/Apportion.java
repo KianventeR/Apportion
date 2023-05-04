@@ -11,12 +11,15 @@ public class Apportion extends javax.swing.JFrame {
     public static Help help = new Help();
     public static About about = new About();
     public static Select select = new Select();
-    public static ResourceReq rreq = new ResourceReq();
+    public static ResourceReqPanel rreq = new ResourceReqPanel();
     public static Safety safe = new Safety();
+    public static Output output = new Output();
     
     public static boolean sound = true;
+
     
     public Apportion() {
+        
         mainFrame.setSize(1080, 720);
         mainFrame.setTitle("Apportion");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +33,7 @@ public class Apportion extends javax.swing.JFrame {
         mainPanel.add(select, "5");
         mainPanel.add(rreq, "6");
         mainPanel.add(safe, "7");
+        mainPanel.add(output, "8");
         
         mainFrame.add(mainPanel);
         mainFrame.pack();
@@ -38,8 +42,8 @@ public class Apportion extends javax.swing.JFrame {
         mainFrame.setLocationRelativeTo(null);
         
         card.show(mainPanel, "1");
-//        Music.bgMusic();
-        
+        Music.bgMusic();
+            
         new java.util.Timer().schedule(new java.util.TimerTask() {
             @Override
             public void run() {
@@ -49,10 +53,13 @@ public class Apportion extends javax.swing.JFrame {
     }
 
     public static void main(String[] args) {
+    
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Apportion();
             }
         });
+
+       
     }
 }
