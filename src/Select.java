@@ -166,6 +166,7 @@ public class Select extends javax.swing.JPanel {
     }
 
     private void select_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Apportion.card.show(Apportion.mainPanel, "2");
     }
 
@@ -178,7 +179,8 @@ public class Select extends javax.swing.JPanel {
     }
 
     private void select_safetyActionPerformed(java.awt.event.ActionEvent evt) {
-
+        Music.sfx();
+        Apportion.safe.reset();
         Apportion.card.show(Apportion.mainPanel, "7");
     }
 
@@ -191,6 +193,9 @@ public class Select extends javax.swing.JPanel {
     }
 
     private void select_resourceActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
+        Apportion.rreq.reset();
+        Apportion.rreq.initiateDisables("from_menu");
         Apportion.card.show(Apportion.mainPanel, "6");
     }
 

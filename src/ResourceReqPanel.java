@@ -1,7 +1,20 @@
+import java.awt.Color;
+import java.util.Random;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 public class ResourceReqPanel extends javax.swing.JPanel {
+  
     public ResourceReqPanel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -9,11 +22,29 @@ public class ResourceReqPanel extends javax.swing.JPanel {
                 | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+
         initComponents();
     }
+    public void table_design(JTable table){
+        table.setFont(new java.awt.Font("Poppins", 0, 12)); 
+        table.getTableHeader().setFont(new java.awt.Font("Poppins", 1, 12));
+        table.getTableHeader().setOpaque(false);
+        table.getTableHeader().setBackground(Color.LIGHT_GRAY);
+    }
                    
-    private void initComponents() {
+    int defaultprocess = 3;
+    int appendprocess = 0;
+    int defaultresource= 3;
+    int current_resource = 0;
+    public int[][] newAlloc_array;
+    public int[][] newMax_array;
+    public int[] newAvailable;
+    public DefaultTableModel newNeed_model;
+    public void initComponents() {
 
+        appendprocess = defaultprocess; 
+        current_resource = defaultresource; 
+        
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         input_requesttable_scroll = new javax.swing.JScrollPane();
@@ -28,6 +59,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_maxtable = new javax.swing.JTable();
         input_alloctable_scroll = new javax.swing.JScrollPane();
         input_alloctable = new javax.swing.JTable();
+        input_addresreq = new javax.swing.JLabel();
         input_resourcereq = new javax.swing.JButton();
         input_random = new javax.swing.JButton();
         input_import = new javax.swing.JButton();
@@ -45,6 +77,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_needtableLabel = new javax.swing.JLabel();
         input_maxtableLabel = new javax.swing.JLabel();
         input_alloctableLabel = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         input_bg = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1080, 720));
@@ -52,7 +85,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1080, 720));
         setLayout(null);
 
-        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_before.png"))); // NOI18N
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_before.png"))); 
         exit.setBorder(null);
         exit.setBorderPainted(false);
         exit.setContentAreaFilled(false);
@@ -73,7 +106,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(exit);
         exit.setBounds(1030, 10, 40, 30);
 
-        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_before.png"))); // NOI18N
+        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_before.png"))); 
         minimize.setBorder(null);
         minimize.setBorderPainted(false);
         minimize.setContentAreaFilled(false);
@@ -96,27 +129,31 @@ public class ResourceReqPanel extends javax.swing.JPanel {
 
         input_requesttable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         input_requesttable_scroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        input_requesttable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        input_requesttable.setColumnSelectionAllowed(true);
+        input_requesttable.setFont(new java.awt.Font("Poppins", 0, 11)); 
         input_requesttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null}
             },
             new String [] {
                 "A", "B", "C"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        input_requesttable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_requesttable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        input_requesttable.setFillsViewportHeight(true);
+        input_requesttable.setFillsViewportHeight(false);
         input_requesttable.setGridColor(new java.awt.Color(0, 0, 0));
         input_requesttable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_requesttable.getTableHeader().setResizingAllowed(false);
@@ -126,10 +163,12 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_requesttable_scroll);
         input_requesttable_scroll.setBounds(800, 250, 220, 70);
 
-        input_processtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        input_processtable.setFont(new java.awt.Font("Poppins", 0, 11)); 
         input_processtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"P1"},
+                {"P2"},
+                {"P3"}
             },
             new String [] {
                 "Process"
@@ -151,7 +190,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
             }
         });
         input_processtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        input_processtable.setFillsViewportHeight(true);
+        input_processtable.setFillsViewportHeight(false);
         input_processtable.setGridColor(new java.awt.Color(0, 0, 0));
         input_processtable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_processtable.getTableHeader().setResizingAllowed(false);
@@ -164,13 +203,15 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_processtable_scroll);
         input_processtable_scroll.setBounds(50, 140, 60, 280);
 
+        input_availtable.setColumnSelectionAllowed(true);
         input_availtable_scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         input_availtable_scroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
-        input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        
+        input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); 
+        input_availtable.setFont(new java.awt.Font("Poppins", 0, 11)); 
         input_availtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null}
 
             },
             new String [] {
@@ -178,16 +219,22 @@ public class ResourceReqPanel extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        input_availtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_availtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        input_availtable.setFillsViewportHeight(true);
+        input_availtable.setFillsViewportHeight(false);
         input_availtable.setGridColor(new java.awt.Color(0, 0, 0));
         input_availtable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_availtable.getTableHeader().setResizingAllowed(false);
@@ -197,7 +244,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_availtable_scroll);
         input_availtable_scroll.setBounds(800, 140, 220, 70);
 
-        input_needtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        input_needtable.setFont(new java.awt.Font("Poppins", 0, 11)); 
         input_needtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -207,17 +254,22 @@ public class ResourceReqPanel extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        input_needtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_needtable.setColumnSelectionAllowed(true);
         input_needtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        input_needtable.setFillsViewportHeight(true);
+        input_needtable.setFillsViewportHeight(false);
         input_needtable.setGridColor(new java.awt.Color(0, 0, 0));
         input_needtable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_needtable.getTableHeader().setResizingAllowed(false);
@@ -233,27 +285,34 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_needtable_scroll);
         input_needtable_scroll.setBounds(570, 140, 220, 280);
 
-        input_maxtable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        input_maxtable.setFont(new java.awt.Font("Poppins", 0, 11)); 
         input_maxtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "A", "B", "C"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        input_maxtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_maxtable.setColumnSelectionAllowed(true);
         input_maxtable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        input_maxtable.setFillsViewportHeight(true);
+        input_maxtable.setFillsViewportHeight(false);
         input_maxtable.setGridColor(new java.awt.Color(0, 0, 0));
         input_maxtable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_maxtable.getTableHeader().setResizingAllowed(false);
@@ -269,9 +328,12 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_maxtable_scroll);
         input_maxtable_scroll.setBounds(340, 140, 220, 280);
 
-        input_alloctable.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        input_alloctable.setFont(new java.awt.Font("Poppins", 0, 11)); 
         input_alloctable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
 
             },
             new String [] {
@@ -279,17 +341,22 @@ public class ResourceReqPanel extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, 
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        input_alloctable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         input_alloctable.setColumnSelectionAllowed(true);
         input_alloctable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        input_alloctable.setFillsViewportHeight(true);
+        input_alloctable.setFillsViewportHeight(false);
         input_alloctable.setGridColor(new java.awt.Color(0, 0, 0));
         input_alloctable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         input_alloctable.getTableHeader().setResizingAllowed(false);
@@ -301,11 +368,21 @@ public class ResourceReqPanel extends javax.swing.JPanel {
             input_alloctable.getColumnModel().getColumn(1).setResizable(false);
             input_alloctable.getColumnModel().getColumn(2).setResizable(false);
         }
-
         add(input_alloctable_scroll);
         input_alloctable_scroll.setBounds(110, 140, 220, 280);
 
-        input_resourcereq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/simulate.png"))); // NOI18N
+        input_addresreq.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); 
+        input_addresreq.setForeground(new java.awt.Color(255, 255, 255));
+        input_addresreq.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        input_addresreq.setText("Select process:");
+        add(input_addresreq);
+        input_addresreq.setBounds(800, 320, 110, 30);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P1", "P2", "P3"}));
+        add(jComboBox1);
+        jComboBox1.setBounds(920, 325, 100, 20);
+
+        input_resourcereq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/simulate.png"))); 
         input_resourcereq.setBorder(null);
         input_resourcereq.setBorderPainted(false);
         input_resourcereq.setContentAreaFilled(false);
@@ -326,7 +403,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_resourcereq);
         input_resourcereq.setBounds(540, 470, 200, 60);
 
-        input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_before.png"))); // NOI18N
+        input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_before.png"))); 
         input_random.setBorder(null);
         input_random.setBorderPainted(false);
         input_random.setContentAreaFilled(false);
@@ -347,7 +424,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_random);
         input_random.setBounds(170, 570, 120, 30);
 
-        input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png"))); // NOI18N
+        input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png"))); 
         input_import.setBorder(null);
         input_import.setBorderPainted(false);
         input_import.setContentAreaFilled(false);
@@ -368,7 +445,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_import);
         input_import.setBounds(50, 570, 112, 30);
 
-        input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_before.png"))); // NOI18N
+        input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_before.png"))); 
         input_return.setBorder(null);
         input_return.setBorderPainted(false);
         input_return.setContentAreaFilled(false);
@@ -389,7 +466,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_return);
         input_return.setBounds(990, 630, 70, 70);
 
-        input_minusresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png"))); // NOI18N
+        input_minusresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png"))); 
         input_minusresource.setBorder(null);
         input_minusresource.setBorderPainted(false);
         input_minusresource.setContentAreaFilled(false);
@@ -410,7 +487,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_minusresource);
         input_minusresource.setBounds(230, 510, 40, 40);
 
-        input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png"))); // NOI18N
+        input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png"))); 
         input_addresource.setBorder(null);
         input_addresource.setBorderPainted(false);
         input_addresource.setContentAreaFilled(false);
@@ -431,7 +508,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_addresource);
         input_addresource.setBounds(270, 510, 40, 40);
 
-        input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png"))); // NOI18N
+        input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png"))); 
         input_minusprocess.setBorder(null);
         input_minusprocess.setBorderPainted(false);
         input_minusprocess.setContentAreaFilled(false);
@@ -451,8 +528,9 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         });
         add(input_minusprocess);
         input_minusprocess.setBounds(230, 450, 40, 40);
+        input_minusprocess.setEnabled(false);
 
-        input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png"))); // NOI18N
+        input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png"))); 
         input_addprocess.setBorder(null);
         input_addprocess.setBorderPainted(false);
         input_addprocess.setContentAreaFilled(false);
@@ -474,7 +552,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_addprocess.setBounds(270, 450, 40, 40);
 
         input_addR.setEditable(false);
-        input_addR.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_addR.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_addR.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         input_addR.setText("0");
         input_addR.setBorder(null);
@@ -483,7 +561,7 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         input_addR.setBounds(170, 510, 40, 30);
 
         input_addP.setEditable(false);
-        input_addP.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_addP.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_addP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         input_addP.setText("0");
         input_addP.setBorder(null);
@@ -491,224 +569,833 @@ public class ResourceReqPanel extends javax.swing.JPanel {
         add(input_addP);
         input_addP.setBounds(170, 450, 40, 30);
 
-        input_resourcenum.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_resourcenum.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_resourcenum.setForeground(new java.awt.Color(255, 255, 255));
         input_resourcenum.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        input_resourcenum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/resource_container.png"))); // NOI18N
+        input_resourcenum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/resource_container.png"))); 
         add(input_resourcenum);
         input_resourcenum.setBounds(50, 500, 170, 50);
 
-        input_processnum.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_processnum.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_processnum.setForeground(new java.awt.Color(255, 255, 255));
         input_processnum.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        input_processnum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/process_container.png"))); // NOI18N
+        input_processnum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/process_container.png"))); 
         add(input_processnum);
         input_processnum.setBounds(50, 440, 170, 50);
 
-        input_requesttableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_requesttableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_requesttableLabel.setForeground(new java.awt.Color(255, 255, 255));
         input_requesttableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_requesttableLabel.setText("RESOURCE-REQUEST");
         add(input_requesttableLabel);
         input_requesttableLabel.setBounds(800, 210, 190, 40);
 
-        input_availtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_availtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_availtableLabel.setForeground(new java.awt.Color(255, 255, 255));
         input_availtableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_availtableLabel.setText("AVAILABLE");
         add(input_availtableLabel);
         input_availtableLabel.setBounds(800, 100, 190, 40);
 
-        input_needtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_needtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_needtableLabel.setForeground(new java.awt.Color(255, 255, 255));
         input_needtableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_needtableLabel.setText("NEED TABLE");
         add(input_needtableLabel);
         input_needtableLabel.setBounds(570, 100, 190, 40);
 
-        input_maxtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_maxtableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_maxtableLabel.setForeground(new java.awt.Color(255, 255, 255));
         input_maxtableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_maxtableLabel.setText("MAX TABLE");
         add(input_maxtableLabel);
         input_maxtableLabel.setBounds(340, 100, 190, 40);
 
-        input_alloctableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        input_alloctableLabel.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); 
         input_alloctableLabel.setForeground(new java.awt.Color(255, 255, 255));
         input_alloctableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         input_alloctableLabel.setText("ALLOCATION TABLE");
         add(input_alloctableLabel);
         input_alloctableLabel.setBounds(50, 100, 260, 40);
 
-        input_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_background.png"))); // NOI18N
+        input_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/input_background.png"))); 
         input_bg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         input_bg.setOpaque(true);
         add(input_bg);
         input_bg.setBounds(0, 0, 1080, 720);
+
+        input_needtable.setVisible(false);
+        input_needtable_scroll.setVisible(false);
+        input_needtableLabel.setVisible(false);
+
+        table_design(input_alloctable);
+        table_design(input_processtable);
+        table_design(input_maxtable);
+        table_design(input_availtable);
+        table_design(input_needtable);
+        table_design(input_requesttable);
+       
+        input_addP.setText(String.valueOf(appendprocess));
+        input_addR.setText(String.valueOf(current_resource));
+       //init components end
     }
 
-    private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {                                      
+   
+
+    public void minimizeMouseEntered(java.awt.event.MouseEvent evt) {                                      
         minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_after.png")));
     }                                     
 
-    private void minimizeMouseExited(java.awt.event.MouseEvent evt) {                                     
+    public void minimizeMouseExited(java.awt.event.MouseEvent evt) {                                     
         minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_before.png")));
     }                                    
 
-    private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {      
+    public void minimizeActionPerformed(java.awt.event.ActionEvent evt) {      
         Music.sfx();                                   
         Apportion.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }                                        
 
-    private void exitMouseEntered(java.awt.event.MouseEvent evt) {                                  
+    public void exitMouseEntered(java.awt.event.MouseEvent evt) {                                  
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_after.png")));
     }                                 
 
-    private void exitMouseExited(java.awt.event.MouseEvent evt) {                                 
+    public void exitMouseExited(java.awt.event.MouseEvent evt) {                                 
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_before.png")));
     }                                
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {         
+    public void exitActionPerformed(java.awt.event.ActionEvent evt) {         
         Music.sfx();                            
         System.exit(0);
     }                                    
 
-    private void input_returnMouseEntered(java.awt.event.MouseEvent evt) {                                          
+    public void input_returnMouseEntered(java.awt.event.MouseEvent evt) {                                          
         input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_after.png")));
     }                                         
 
-    private void input_returnMouseExited(java.awt.event.MouseEvent evt) {                                         
+    public void input_returnMouseExited(java.awt.event.MouseEvent evt) {                                         
         input_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_before.png")));
     }                                        
 
-    private void input_returnActionPerformed(java.awt.event.ActionEvent evt) {      
-        Music.sfx();                                       
+    public void input_returnActionPerformed(java.awt.event.ActionEvent evt) {      
+        Music.sfx();
+        reset();
+        Apportion.safe.reset(); 
+        Apportion.rreq.reset();                                      
         Apportion.card.show(Apportion.mainPanel, "2");
     }                                            
 
-    private void input_importMouseEntered(java.awt.event.MouseEvent evt) {                                          
+    void reset() {
+
+        defaultprocess = 3;
+        appendprocess = 0;
+        defaultresource= defaultprocess;
+        current_resource = appendprocess;
+        
+        removeAll();
+        initComponents();
+    }
+    public void input_importMouseEntered(java.awt.event.MouseEvent evt) {                                          
         input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_after.png")));
     }                                         
 
-    private void input_importMouseExited(java.awt.event.MouseEvent evt) {                                         
+    public void input_importMouseExited(java.awt.event.MouseEvent evt) {                                         
         input_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/import_before.png")));
     }                                        
 
-    private void input_importActionPerformed(java.awt.event.ActionEvent evt) {      
+    public void input_importActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
-        
+
+        alloc = access_models(input_alloctable, "alloc");
+        max = access_models(input_maxtable, "max");
+        process = access_models(input_processtable, "process");
+        available = access_models(input_availtable, "avail");
+        request = access_models(input_requesttable, "request");
+
+        final JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+    
+        File file = fc.getSelectedFile();
+
+        try (Scanner read = new Scanner(file)) {
+            String string_process = " ";
+            String string_resource = " ";
+            String temp = " ";
+            String int_temp = " ";
+            
+           for(int i = 0; i < 4; i++){
+            string_process = read.next();
+           }
+           for(int i = 0; i < 4; i++){
+            string_resource = read.next();
+           }
+           
+           int process_no = Integer.valueOf(string_process);
+           int resource_no = Integer.valueOf(string_resource);
+           alloc.setRowCount(process_no);
+           alloc.setColumnCount(resource_no);
+           max.setRowCount(process_no);
+           max.setColumnCount(resource_no);
+           jComboBox1.removeAllItems();
+           for(int i = 0; i < process_no; i++){
+            process.setRowCount(i + 1);
+            process.setValueAt("P" + (i+1), i, 0);
+            jComboBox1.addItem("P" + (i+1));
+           }
+           available.setColumnCount(resource_no);
+           request.setColumnCount(resource_no);
+           
+            temp = read.next();
+
+            if(temp.equals("Alloc")){
+                for(int row = 0; row < process_no; row++){
+                    for(int col = 0; col < resource_no; col++){
+                        int_temp = read.next();
+                        if(int_temp.equals("Max")){
+                            break;
+                        }
+                        else{
+                            int value = Integer.valueOf(int_temp);
+                            alloc.setValueAt(value, row, col);
+                        }
+                    }
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Follow proper format!");
+                return;
+            }
+
+           temp = read.next();
+           if(temp.equals("Max")){
+            for(int row = 0; row < process_no; row++){
+                for(int col = 0; col < resource_no; col++){
+                    
+                    int_temp = read.next();
+                    if(int_temp.equals("Available")){
+                        break;
+                    }
+                    else{
+                        int value = Integer.valueOf(int_temp);
+                        max.setValueAt(value, row, col);
+                    }
+                }
+            }
+           }else{
+            JOptionPane.showMessageDialog(null, "Follow proper format!");
+                return;
+           }
+
+           temp = read.next();
+           if (temp.equals("Available")) {
+               for(int col = 0; col < resource_no; col++){
+                    int_temp = read.next();
+                    if (int_temp.equals("Resource-Request")) {
+                        break;
+                    } else {
+                        int value = Integer.valueOf(int_temp);
+                        available.setValueAt(value, 0, col);
+                    }
+               }
+            } else {
+                JOptionPane.showMessageDialog(null, "Follow proper format!");
+                return;
+            }
+
+           temp = read.next();
+           if (temp.equals("Resource-Request")) {
+            for(int col = 0; col < resource_no; col++){
+                int_temp = read.next();
+                if (int_temp.equals("Requesting(Process)")) {
+                    break;
+                } else {
+                    int value = Integer.valueOf(int_temp);
+                    request.setValueAt(value, 0, col);
+                }
+            }
+        } else {
+         JOptionPane.showMessageDialog(null, "Follow proper format!");
+             return;
+        }
+
+        temp = read.next();
+        if (temp.equals("Requesting(Process)")) {
+            int_temp = read.next();
+            int value = Integer.valueOf(int_temp);
+            jComboBox1.setSelectedIndex(value - 1);
+
+        } else {
+         JOptionPane.showMessageDialog(null, "Follow proper format!");
+             return;
+        }
+           appendprocess = process_no;
+           current_resource = resource_no;
+
+           input_addP.setText(String.valueOf(appendprocess));
+           input_addR.setText(String.valueOf(current_resource));
+        } catch (Exception e) {}
     }                                            
 
-    private void input_randomMouseEntered(java.awt.event.MouseEvent evt) {                                          
+    public void input_randomMouseEntered(java.awt.event.MouseEvent evt) {                                          
         input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_after.png")));
     }                                         
 
-    private void input_randomMouseExited(java.awt.event.MouseEvent evt) {                                         
+    public void input_randomMouseExited(java.awt.event.MouseEvent evt) {                                         
         input_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/random_before.png")));
     }                                        
 
-    private void input_randomActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    public void input_randomActionPerformed(java.awt.event.ActionEvent evt) {                                             
         Music.sfx();
+        int upperbound, lowerbound, seed;
+        upperbound = 20;
+        lowerbound = 1;   
+        seed = (int) System.currentTimeMillis();
+        Random rand = new Random(seed);
+        int random_int = rand.nextInt(upperbound-lowerbound) + lowerbound;
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+        available = access_models(input_availtable, "avail");
+        request = access_models(input_requesttable, "request");
+
+        for(int col = 0; col < current_resource; col++){
+            for(int row = 0; row < appendprocess; row++){
+                max.setValueAt(random_int, row, col);
+                random_int = rand.nextInt((int)(max.getValueAt(row, col))-lowerbound + 1) + lowerbound;
+                alloc.setValueAt(random_int, row, col);
+                random_int = rand.nextInt(upperbound-lowerbound) + lowerbound;
+            }
+        }
+        for(int i = 0; i < current_resource; i++){
+            available.setValueAt(random_int, 0, i);
+            random_int = rand.nextInt(upperbound-lowerbound) + lowerbound;
+            request.setValueAt(random_int, 0, i);
+            random_int = rand.nextInt(upperbound-lowerbound) + lowerbound;
+        }
+
     }                                            
 
-    private void input_resourcereqActionPerformed(java.awt.event.ActionEvent evt) {     
-        Music.sfx();                                        
+    public void input_resourcereqActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+        available = access_models(input_availtable, "avail");
+        request = access_models(input_requesttable, "request");
+        int process = jComboBox1.getSelectedIndex();
+
+        if(this.selected != "from_safety"){
+        for (int i = 0; i < appendprocess; i++){
+            for(int j = 0; j < current_resource; j++){
+                if(max.getValueAt(i, j) != null && alloc.getValueAt(i, j) != null){
+                    continue;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fill all cells!");
+                    return;
+                }
+            }
+        }
+
+        for(int i = 0; i < current_resource; i++){
+            if(available.getValueAt(0, i) != null && request.getValueAt(0, i) != null){
+                continue;
+            } else {
+                JOptionPane.showMessageDialog(null, "Fill all cells!");
+                return;
+            }
+        }
+
+           // initialize models
+        } else{
+            for(int i = 0; i < current_resource; i++){
+                if(request.getValueAt(0, i) != null){
+                    continue;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fill all cells!");
+                    return;
+                }
+            }
+        }
+                                           
+        if(this.selected == "from_safety"){
+            need_model = (javax.swing.table.DefaultTableModel)input_needtable.getModel();
+
+            Apportion.output.input_alloctable_scroll.setViewportView(Apportion.safe.input_alloctable);
+            Apportion.output.input_processtable_scroll.setViewportView(Apportion.safe.input_processtable);
+            Apportion.output.input_maxtable_scroll.setViewportView(Apportion.safe.input_maxtable);
+            Apportion.output.input_availtable_scroll.setViewportView(Apportion.safe.input_availtable);
+            Apportion.output.input_needtable_scroll.setViewportView(null);
+            need_model.setColumnCount(Apportion.safe.input_maxtable.getColumnCount());
+            need_model.setRowCount(Apportion.safe.input_maxtable.getRowCount());
+
+            //create array here
+            newAlloc_array = Apportion.safe.alloc_array.clone();
+            newMax_array = Apportion.safe.max_array.clone();
+            newAvailable = Apportion.safe.avail_array.clone();
+            for(int i = 0; i < newMax_array.length; i++){
+                for(int j = 0; j < newMax_array[0].length; j++){
+                    need_model.setValueAt(newMax_array[i][j] - newAlloc_array[i][j], i, j);
+                }
+            }
+            input_needtable.setModel(need_model);
+            Apportion.output.input_needtable_scroll.setViewportView(input_needtable); 
+            
+        }else{
+            newAlloc_array = createAlloc(alloc, appendprocess, current_resource);
+            newMax_array = createMax(max, appendprocess, current_resource);
+            newAvailable = createAvail(available, appendprocess, current_resource);
+
+            need_model = (javax.swing.table.DefaultTableModel)input_needtable.getModel();
+
+            Apportion.output.input_alloctable_scroll.setViewportView(input_alloctable);
+            Apportion.output.input_processtable_scroll.setViewportView(input_processtable);
+            Apportion.output.input_maxtable_scroll.setViewportView(input_maxtable);
+            Apportion.output.input_availtable_scroll.setViewportView(input_availtable);
+            Apportion.output.input_requesttable_scroll.setViewportView(input_requesttable);
+
+            newNeed_model = (javax.swing.table.DefaultTableModel)Apportion.output.input_needtable.getModel();
+            newNeed_model.setColumnCount(current_resource);
+            newNeed_model.setRowCount(appendprocess);
+        }
+       
+        Apportion.output.initiateDisables("from_rreq");
         Apportion.card.show(Apportion.mainPanel, "8");
-    }                                            
 
-    private void input_resourcereqMouseExited(java.awt.event.MouseEvent evt) {                                              
+        // resource request simulate
+        int[][] alloc_array;
+        int[][] max_array;
+        int[] avail_array;
+
+        if(this.selected == "from_safety"){
+            alloc_array = newAlloc_array;
+            max_array = newMax_array;
+            avail_array = newAvailable;
+        }else{
+            alloc_array = newAlloc_array;
+            max_array = newMax_array;
+            avail_array = newAvailable;
+        }
+      
+        if(this.selected == "from_safety"){
+            alloc_array = newAlloc_array;
+            max_array = newMax_array;
+            avail_array = newAvailable;
+        }else{
+            alloc_array = createAlloc(alloc, appendprocess, current_resource);
+            max_array = createMax(max, appendprocess, current_resource);
+            avail_array = createAvail(available, appendprocess, current_resource);
+        }
+      
+        int[][] need_array = new int[appendprocess][current_resource];
+        int[] request_array = createRequest(request, appendprocess, current_resource);
+
+        for(int row = 0; row < appendprocess; row++){
+            for(int col = 0; col < current_resource; col++){
+                need_array[row][col] = max_array[row][col] - alloc_array[row][col];
+            }
+        }
+
+        ResourceRequest resourceRequestAlgo = new ResourceRequest(process, request_array, need_array, alloc_array, max_array, avail_array); 
+        if(this.selected != "from_safety"){
+            need_model.setColumnCount(current_resource);
+            need_model.setRowCount(appendprocess);
+        }
+        // get new need array for display
+        int[][] newNeedArray = resourceRequestAlgo.getNeed();
+
+        for(int row = 0; row < appendprocess; row++){
+            for(int col = 0; col < current_resource; col++){
+                need_array[row][col] = max_array[row][col] - alloc_array[row][col];
+                need_model.setValueAt(newNeedArray[row][col], row, col);
+            }
+        }
+        
+        // safety algorithm simulation
+        timer = new Timer(500, new ActionListener() {
+            
+            public void actionPerformed(ActionEvent evt){
+                String display_help = "";
+                if(resourceRequestAlgo.getStep() < 5){
+                    // show step
+                    step = resourceRequestAlgo.getStep();
+                    // add if-else for every step
+                    if(step == 1){
+                         // simulate first
+                        resourceRequestAlgo.execute();
+                        display_help += "Step 1 -> ";
+                        display_help += "Work = Available\n";
+                        display_help += "Work array: ";
+                        int[] work = resourceRequestAlgo.getWork();
+                        for(int i = 0; i < resourceRequestAlgo.getResources(); i++){
+                            display_help += work[i] + " ";
+                        }
+                        display_help += "\n";
+                        
+                        Boolean[] finish = resourceRequestAlgo.getFinish();
+                        display_help += "Finish array: ";
+                        for(int i = 0; i < resourceRequestAlgo.getProcesses(); i++){
+                            display_help += finish[i] + " ";
+                        }
+                    }else if(step == 2){
+                        Apportion.output.input_boxcheckbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/boxcheck.png")));
+                        int process = resourceRequestAlgo.getProcess();
+                        int resource = resourceRequestAlgo.getResource();
+                        display_help += "Step 2 ";
+                        display_help += "for Process "+process+" and Resource "+resource+"\n";
+                        
+                        // simulate first
+                        resourceRequestAlgo.execute();
+        
+                        int [][] needCopy = resourceRequestAlgo.getNeed();
+                        int [] work = resourceRequestAlgo.getWork();
+                        display_help += "Need["+process+"]["+resource+"]: "+needCopy[process][resource]+"\n";
+                        display_help += "Work"+"["+resource+"]: "+work[resource]+"\n";
+                        // show result
+                        Boolean hasWork = resourceRequestAlgo.getHasWork();
+                        display_help += "Can be executed? : "+hasWork;
+                        if(hasWork){
+                           Apportion.output.input_boxcheckbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/boxcheck_right.png")));
+                        }
+                        else{
+                            Apportion.output.input_boxcheckbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/boxcheck_wrong.png")));
+                        }
+        
+                    }else if(step == 3){
+                        Apportion.output.input_boxcheckbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/boxcheck.png")));
+                        Boolean[] finish = resourceRequestAlgo.getFinish();
+                         Boolean hasWork = resourceRequestAlgo.getHasWork();
+                         int process = resourceRequestAlgo.getProcess();
+                         display_help += "Step 3 ";
+                         display_help += "for Process "+process+"\n";
+                         display_help += "finish["+process+"]"+finish[process]+" and "+"hasWork: "+hasWork+"\n";
+                         if(hasWork){
+                            display_help += "So, Process "+process+" should be executed\n";
+                         }else{
+                            display_help += "So, Process "+process+" should wait\n";
+                         }
+
+                        // simulate first
+                        resourceRequestAlgo.execute();
+                        int worked = resourceRequestAlgo.getWorked();
+                        display_help += "checked processes: "+worked+"\n";
+        
+                    }else if(step == 4){
+                         // simulate first
+                         Apportion.output.input_boxcheckbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/boxcheck.png")));
+                         resourceRequestAlgo.execute();
+        
+                        Boolean[] finish = resourceRequestAlgo.getFinish();
+                        Boolean safe = resourceRequestAlgo.isSafe();
+                        display_help += "Finished processes: \n";
+                        for(int i = 0; i < resourceRequestAlgo.getProcesses(); i++){
+                            if(finish[i]){
+                                display_help += (i+1) + " ";
+                            }
+                        }
+                        display_help += "\nSafe state found: "+safe;
+                        if(safe){
+                            display_help += "\nResource request granted. ";
+                        }else{
+                            display_help += "\nResource request not granted. ";
+                        }
+                    }
+                }
+                Apportion.output.help_01.setText(display_help);
+                String sequence_display = "";
+                int[] safeSeq = resourceRequestAlgo.getSafetySequence();
+                for(int i = 0; i < safeSeq.length; i++){
+                    int display_num = safeSeq[i]+1;
+                    
+                    if(i < safeSeq.length - 1){
+                        sequence_display += ("P"+display_num+ "->");
+                    }else{
+                        sequence_display += ("P"+display_num);
+                    }
+                }
+                if(resourceRequestAlgo.getStep() == 5 && resourceRequestAlgo.isSafe()){
+                    Apportion.output.input_seqText.setText(sequence_display);
+                }else{
+                    Apportion.output.input_seqText.setText("NO SAFETY SEQUENCE");
+                }
+                if(resourceRequestAlgo.getStep() == 5){
+                    timer.stop();
+                }
+                int[] work = resourceRequestAlgo.getWork();
+                for(int i = 0; i < work.length; i++){
+                    available.setValueAt(work[i], 0, i);
+                }
+            }
+        });
+        if(!timer.isRunning()){
+            timer.start();
+        }
+        for(int row = 0; row < appendprocess; row++){
+            for(int col = 0; col < current_resource; col++){
+                newNeed_model.setValueAt(newNeedArray[row][col], row, col);
+            }
+        }
+    Apportion.output.input_needtable_scroll.setViewportView(Apportion.output.input_needtable);
+    }
+    
+    public int[][] createAlloc(DefaultTableModel allocations, int p, int r) {
+        int alloc_array[][] = new int [p][r];
+
+        for(int row = 0; row < p; row++){
+            for(int col = 0; col < r; col++){
+                alloc_array[row][col] = (int) allocations.getValueAt(row, col);
+            }
+        }
+        return alloc_array;
+    }
+
+    public int[][] createMax(DefaultTableModel max,int p, int r) {
+        int max_array[][] = new int [p][r];
+        for(int row = 0; row < p; row++){
+            for(int col = 0; col < r; col++){
+                max_array[row][col] = (int) max.getValueAt(row, col);
+            }
+        }
+        return max_array;
+    }
+
+    public int[] createAvail(DefaultTableModel avail,int p, int r) {
+        int avail_array[] = new int [r];
+        for(int col = 0; col < r; col++){
+                avail_array[col] = (int) avail.getValueAt(0, col);
+        }
+        return avail_array;
+    }
+
+    public int[] createRequest(DefaultTableModel req,int p, int r) {
+        int request_array[] = new int [r];
+        for(int col = 0; col < r; col++){
+                request_array[col] = (int) req.getValueAt(0, col);
+        }
+        return request_array;
+    }
+
+    public void input_resourcereqMouseExited(java.awt.event.MouseEvent evt) {                                              
         input_resourcereq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/simulate.png")));
     }                                             
 
-    private void input_resourcereqMouseEntered(java.awt.event.MouseEvent evt) {                                               
+    public void input_resourcereqMouseEntered(java.awt.event.MouseEvent evt) {                                               
         input_resourcereq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/simulate_after.png")));
     }                                              
 
-    private void input_minusresourceMouseEntered(java.awt.event.MouseEvent evt) {                                                 
+    public void input_minusresourceMouseEntered(java.awt.event.MouseEvent evt) {                                                 
         input_minusresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_after.png")));
     }                                                
 
-    private void input_minusresourceMouseExited(java.awt.event.MouseEvent evt) {                                                
+    public void input_minusresourceMouseExited(java.awt.event.MouseEvent evt) {                                                
         input_minusresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png")));
     }                                               
-
-    private void input_minusresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        Music.sfx();
-
+    
+    public void input_minusresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        Music.sfx();                
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+        javax.swing.table.DefaultTableModel req_model = (javax.swing.table.DefaultTableModel)input_requesttable.getModel();
+        
+        if( current_resource > 3){     
+            alloc_model.setColumnCount(alloc_model.getColumnCount()-1);
+            max_model.setColumnCount(max_model.getColumnCount()-1);
+            avail_model.setColumnCount(avail_model.getColumnCount()-1);
+            req_model.setColumnCount(req_model.getColumnCount()-1);
+            current_resource--;
+            input_addR.setText(String.valueOf(current_resource));
+        }
     }                                                   
 
-    private void input_addresourceMouseEntered(java.awt.event.MouseEvent evt) {                                               
+    public void input_addresourceMouseEntered(java.awt.event.MouseEvent evt) {                                               
         input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
     }                                              
 
-    private void input_addresourceMouseExited(java.awt.event.MouseEvent evt) {                                              
+    public void input_addresourceMouseExited(java.awt.event.MouseEvent evt) {                                              
         input_addresource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png")));
     }                                             
 
-    private void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+    public void input_addresourceActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         Music.sfx();
 
         javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
         javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel req_model = (javax.swing.table.DefaultTableModel)input_requesttable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+        
+
         alloc_model.setColumnCount(alloc_model.getColumnCount()+1);
         max_model.setColumnCount(max_model.getColumnCount()+1);
+        req_model.setColumnCount(req_model.getColumnCount()+1);
+        avail_model.setColumnCount(avail_model.getColumnCount()+1);
+
+        current_resource++;
+        input_addR.setText(String.valueOf(current_resource));
+
     }                                                 
 
-    private void input_minusprocessMouseEntered(java.awt.event.MouseEvent evt) {                                                
+    public void input_minusprocessMouseEntered(java.awt.event.MouseEvent evt) {                                                
         input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_after.png")));
     }                                               
 
-    private void input_minusprocessMouseExited(java.awt.event.MouseEvent evt) {                                               
+    public void input_minusprocessMouseExited(java.awt.event.MouseEvent evt) {                                               
         input_minusprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/remove_before.png")));
     }                                              
 
-    private void input_minusprocessActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    public void input_minusprocessActionPerformed(java.awt.event.ActionEvent evt) {                                                   
         Music.sfx();
-
+        int getRowCount = process.getRowCount();
+        if(getRowCount > 3){
+            process = access_models(input_alloctable, "process");
+            max = access_models(input_maxtable, "max");
+            alloc = access_models(input_alloctable, "alloc");
+            process.setRowCount(process.getRowCount() - 1);
+            max.setRowCount(max.getRowCount() - 1);
+            alloc.setRowCount(alloc.getRowCount() - 1);
+            jComboBox1.removeItemAt(appendprocess - 1);
+            appendprocess--;
+            input_addP.setText(String.valueOf(appendprocess));
+           
+        }
     }                                                  
 
-    private void input_addprocessMouseEntered(java.awt.event.MouseEvent evt) {                                              
+    public void input_addprocessMouseEntered(java.awt.event.MouseEvent evt) {                                              
         input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_after.png")));
     }                                             
 
-    private void input_addprocessMouseExited(java.awt.event.MouseEvent evt) {                                             
+    public void input_addprocessMouseExited(java.awt.event.MouseEvent evt) {                                             
         input_addprocess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/input_panel/adding_before.png")));
     }                                            
-
-    private void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    javax.swing.table.DefaultTableModel process, max, alloc, available, request;
+    
+    public void input_addprocessActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         Music.sfx();
-    }                          
+        input_minusprocess.setEnabled(true);
+
+        process = access_models(input_processtable, "process");
+        max = access_models(input_maxtable, "max");
+        alloc = access_models(input_alloctable, "alloc");
+         
+        process.setRowCount(process.getRowCount() + 1);
+        
+        max.setRowCount(max.getRowCount() + 1);
+        alloc.setRowCount(alloc.getRowCount() + 1);
+        jComboBox1.addItem("P"+ Integer.toString(appendprocess+1));
+
+        process.setValueAt("P"+ process.getRowCount(), process.getRowCount()-1, 0);
+        appendprocess++;
+        input_addP.setText(String.valueOf(appendprocess));
+    }
+    
+    public javax.swing.table.DefaultTableModel access_models(JTable table, String name) {
+        
+        javax.swing.table.DefaultTableModel process_model = (javax.swing.table.DefaultTableModel)input_processtable.getModel();
+        javax.swing.table.DefaultTableModel alloc_model = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+        javax.swing.table.DefaultTableModel max_model = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+        javax.swing.table.DefaultTableModel avail_model = (javax.swing.table.DefaultTableModel)input_availtable.getModel();
+        javax.swing.table.DefaultTableModel request_model = (javax.swing.table.DefaultTableModel)input_requesttable.getModel();
+        
+        if(name == "process"){return process_model;}
+        if(name == "alloc"){return alloc_model;}
+        if(name == "max"){return max_model;}
+        if(name == "avail"){return avail_model;}
+        if(name == "request"){return request_model;}
+        return null;
+
+    }
+    public void initiateDisables(String selected) {
+        
+        
+       if(selected == "from_safety") {
+        this.selected = "from_safety";
+            input_addprocess.setEnabled(false);
+            input_addresource.setEnabled(false);
+            input_addP.setEnabled(false);
+            input_addR.setEnabled(false);
+            input_minusresource.setEnabled(false);
+            input_minusprocess.setEnabled(false);
+            input_needtable.setVisible(true);
+            input_needtable_scroll.setVisible(true);
+            input_needtableLabel.setVisible(true);
+            input_import.setEnabled(false);
+            input_random.setEnabled(false);
+
+            input_processtable_scroll.setViewportView(Apportion.safe.input_processtable);
+            input_maxtable_scroll.setViewportView(Apportion.safe.input_maxtable);
+            input_alloctable_scroll.setViewportView(Apportion.safe.input_alloctable);
+            input_needtable_scroll.setViewportView(Apportion.output.input_needtable);
+            input_availtable_scroll.setViewportView(Apportion.safe.input_availtable);
+
+           
+            
+
+           
+
+            // Apportion.output.setNewTables();
+
+            javax.swing.table.DefaultTableModel req_model = (javax.swing.table.DefaultTableModel)input_requesttable.getModel();
+            req_model.setColumnCount(Apportion.safe.input_alloctable.getColumnCount());
+            
+        
+        }
+        else if (selected == "from_menu"){
+            this.selected = "from_menu";
+            // process, max, alloc, available, request; -> default TableModels
+            request = (javax.swing.table.DefaultTableModel)input_requesttable.getModel();
+            need_model = (javax.swing.table.DefaultTableModel)input_needtable.getModel();
+            process = (javax.swing.table.DefaultTableModel)input_processtable.getModel();
+            alloc = (javax.swing.table.DefaultTableModel)input_alloctable.getModel();
+            max = (javax.swing.table.DefaultTableModel)input_maxtable.getModel();
+            available =(javax.swing.table.DefaultTableModel)input_availtable.getModel();
+
+            input_processtable_scroll.setViewportView(input_processtable);
+            input_requesttable_scroll.setViewportView(input_requesttable);
+            input_alloctable_scroll.setViewportView(input_alloctable);
+            input_maxtable_scroll.setViewportView(input_maxtable);
+            input_availtable_scroll.setViewportView(input_availtable);
+
+
+
+
+        }
+    }     
              
-    private javax.swing.JButton exit;
-    private javax.swing.JTextField input_addP;
-    private javax.swing.JTextField input_addR;
-    private javax.swing.JButton input_addprocess;
-    private javax.swing.JButton input_addresource;
-    private javax.swing.JTable input_alloctable;
-    private javax.swing.JLabel input_alloctableLabel;
-    private javax.swing.JScrollPane input_alloctable_scroll;
-    private javax.swing.JTable input_availtable;
-    private javax.swing.JLabel input_availtableLabel;
-    private javax.swing.JScrollPane input_availtable_scroll;
-    private javax.swing.JLabel input_bg;
-    private javax.swing.JButton input_import;
-    private javax.swing.JTable input_maxtable;
-    private javax.swing.JLabel input_maxtableLabel;
-    private javax.swing.JScrollPane input_maxtable_scroll;
-    private javax.swing.JButton input_minusprocess;
-    private javax.swing.JButton input_minusresource;
-    private javax.swing.JTable input_needtable;
-    private javax.swing.JLabel input_needtableLabel;
-    private javax.swing.JScrollPane input_needtable_scroll;
-    private javax.swing.JLabel input_processnum;
-    private javax.swing.JTable input_processtable;
-    private javax.swing.JScrollPane input_processtable_scroll;
-    private javax.swing.JButton input_random;
-    private javax.swing.JTable input_requesttable;
-    private javax.swing.JLabel input_requesttableLabel;
-    private javax.swing.JScrollPane input_requesttable_scroll;
-    private javax.swing.JLabel input_resourcenum;
-    private javax.swing.JButton input_resourcereq;
-    private javax.swing.JButton input_return;
-    private javax.swing.JButton minimize;      
+    
+
+    public javax.swing.JButton exit;
+    public javax.swing.JTextField input_addP;
+    public javax.swing.JTextField input_addR;
+    public javax.swing.JButton input_addprocess;
+    public javax.swing.JButton input_addresource;
+    public javax.swing.JLabel input_addresreq;
+    public javax.swing.JTable input_alloctable;
+    public javax.swing.JLabel input_alloctableLabel;
+    public javax.swing.JScrollPane input_alloctable_scroll;
+    public javax.swing.JTable input_availtable;
+    public javax.swing.JLabel input_availtableLabel;
+    public javax.swing.JScrollPane input_availtable_scroll;
+    public javax.swing.JLabel input_bg;
+    public javax.swing.JButton input_import;
+    public javax.swing.JTable input_maxtable;
+    public javax.swing.JLabel input_maxtableLabel;
+    public javax.swing.JScrollPane input_maxtable_scroll;
+    public javax.swing.JButton input_minusprocess;
+    public javax.swing.JButton input_minusresource;
+    public javax.swing.JTable input_needtable;
+    public javax.swing.JLabel input_needtableLabel;
+    public javax.swing.JScrollPane input_needtable_scroll;
+    public javax.swing.JLabel input_processnum;
+    public javax.swing.JTable input_processtable;
+    public javax.swing.JScrollPane input_processtable_scroll;
+    public javax.swing.JButton input_random;
+    public javax.swing.JTable input_requesttable;
+    public javax.swing.JLabel input_requesttableLabel;
+    public javax.swing.JScrollPane input_requesttable_scroll;
+    public javax.swing.JLabel input_resourcenum;
+    public javax.swing.JButton input_resourcereq;
+    public javax.swing.JButton input_return;
+    public javax.swing.JButton minimize;
+    public javax.swing.JComboBox<String> jComboBox1;
+    public DefaultTableModel need_model;
+    public Timer timer;
+    public String selected;
+    public int step;
+
 }

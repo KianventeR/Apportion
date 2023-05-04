@@ -265,7 +265,6 @@ public class MainMenu extends javax.swing.JPanel {
         } else {
             menu_audio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/muteX.png")));
         }             
-        
     }                                      
 
     private void menu_audioActionPerformed(java.awt.event.ActionEvent evt) {        

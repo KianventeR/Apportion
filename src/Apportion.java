@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Apportion extends javax.swing.JFrame {
+    // public static String selected = "default";
     public static JFrame mainFrame = new JFrame();
     public static JPanel mainPanel = new JPanel();
     public static CardLayout card = new CardLayout();
@@ -16,10 +17,12 @@ public class Apportion extends javax.swing.JFrame {
     public static Output output = new Output();
     
     public static boolean sound = true;
+    public static String selected;
+    public static Object ResourceReqPanel;
 
     
     public Apportion() {
-        
+       
         mainFrame.setSize(1080, 720);
         mainFrame.setTitle("Apportion");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,13 +56,10 @@ public class Apportion extends javax.swing.JFrame {
     }
 
     public static void main(String[] args) {
-    
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Apportion();
             }
         });
-
-       
     }
 }

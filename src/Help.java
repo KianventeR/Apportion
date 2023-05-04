@@ -77,7 +77,7 @@ public class Help extends javax.swing.JPanel {
         add(help_return);
         help_return.setBounds(990, 630, 70, 70);
 
-        help_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/backgrounds/bg_plain.png"))); 
+        help_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/backgrounds/help.png"))); 
         help_bg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         help_bg.setOpaque(true);
         add(help_bg);
